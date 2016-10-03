@@ -86,7 +86,7 @@
 
 				<div class="row three">
 					<div class="portrait">
-						<img src="../images/portrait/ix.jpg">
+						<img src="../images/portrait/ix.png">
 						<img src="../images/portrait/ix-flip.jpg">
 						<h1> Iris Xu </h1>
 						<p> Finance Director </p>
@@ -143,14 +143,14 @@
 				</div>
 				<div class="row five">
 					<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/ac.jpg">
+				   		<img src="../images/portrait/ac-flip.jpg">
 				   		<h1> Alan Cooper </h1>
 				   		<p> Internal JO </p>
 				   	</div>					
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/ic.jpg">
+				   		<img src="../images/portrait/ic-flip.jpg">
 				   		<h1> Irene Chiang </h1>
 				   		<p> Internal JO </p>
 				   	</div>
@@ -161,14 +161,14 @@
 				   		<p> External JO </p>
 				   	</div>
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/al.jpg">
+				   		<img src="../images/portrait/al-flip.jpg">
 				   		<h1> Angela Liu </h1>
 				   		<p> External JO, Media JO </p>
 				   	</div>
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/lc.jpg">
+				   		<img src="../images/portrait/lc-flip.jpg">
 				   		<h1> Lawrence Chu </h1>
 				   		<p> Special Events JO </p>
 				   	</div>
@@ -176,20 +176,20 @@
 
 				<div class="row three">
 					<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/js.jpg">
+				   		<img src="../images/portrait/js-flip.jpg">
 				   		<h1> Jessie Sun </h1>
 				   		<p> Special Events JO </p>
 				   	</div>					
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/bt.jpg">
+				   		<img src="../images/portrait/bt-flip.jpg">
 				   		<h1> Brandon Tang </h1>
 				   		<p> Finance JO </p>
 				   	</div>
 					<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/cp.jpg">
+				   		<img src="../images/portrait/cp-flip.jpg">
 				   		<h1> Claire Pippin </h1>
 				   		<p> Marketing JO </p>
 				   	</div>
@@ -197,32 +197,32 @@
 
 				<div class="row five">
 					<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/cw.jpg">
+				   		<img src="../images/portrait/cw-flip.jpg">
 				   		<h1> Chelsea Wang </h1>
 				   		<p> Communications JO </p>
 				   	</div>					
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/aw.jpg">
+				   		<img src="../images/portrait/aw-flip.jpg">
 				   		<h1> Ann Wang </h1>
 				   		<p> Philanthropy JO </p>
 				   	</div>
 					<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/ek.jpg">
+				   		<img src="../images/portrait/ek-flip.jpg">
 				   		<h1> Emily Kwong </h1>
 				   		<p> Web JO </p>
 				   	</div>
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/wt.jpg">
+				   		<img src="../images/portrait/wt-flip.png">
 				   		<h1> Wesley Tsai </h1>
 				   		<p> Media JO </p>
 				   	</div>
 				   	<div class="portrait">
-				   		<img src="../images/portrait/cl.jpg">
-				   		<img src="../images/portrait/cl-flip.jpg">
+				   		<img src="../images/portrait/cc.jpg">
+				   		<img src="../images/portrait/cc-flip.jpg">
 				   		<h1> Chris Chiu </h1>
 				   		<p> Athletics JO </p>
 				   	</div>
@@ -350,268 +350,8 @@
 	//End Scroll Magic Stuff
 
 
-	$(document).ready(function(){
 
-
-		var temp = '';
-		var onRow;
-		var cRow=null;
-		var picnum = '';
-		var onName='';
-		var cName ='';
-		var infoOfficer='Blank';
-		var picsrc = '';
-		var Inf = ".info";
-		
-
-		
-
-
-		function otherUP(){
-			Inf=document.getElementsByClassName("info");
-			if(cRow==onRow && onName==cName){
-				$(Inf[fixer]).slideUp("slow");
-				onRow='blank';
-			}
-			else if(cRow==onRow && onName!=cName){
-				onName=cName;
-			}
-			else{
-				$(Inf[onRow]).slideUp("slow");
-				onRow = cRow;
-				onName = cName;
-				$(Inf[fixer]).delay(400).slideDown("slow");
-			};				
-		};
-
-		var fixer = 0;//used to fix the index / tell which row on
-		$(".rowOf").click(function(){
-				fixer = $(this.parentNode.parentNode).index();
-				temp=$(this.parentNode.parentNode.parentNode).index();//finds if you're in the Officer stuff or JO stuff
-				fixIndex();
-				cRow=fixer;
-				picsrc = document.getElementsByClassName("rowOf");
-				picnum = $(this.parentNode).index();
-				setIndex();
-				setName();
-				otherUP();
-			});
-
-
-			var OArray = new Array(/*Officers*/3,4,3, /*JO's*/3,4,3,4,3,4,3);//denotes the pictures per row
-			function setIndex(){//this sorts through what element to grab the value from
-				for(var i =0; i<fixer;i++)
-					picnum+=OArray[i];
-			};
-
-			function fixIndex(){//accounts for other div elements in indexing
-					fixer = Math.floor(fixer/2);//assumes a specific format of picture container->info->picture container, etc.
-					if(temp==2)//temp is the flag set for officers/JO's
-						{fixer+=3;}//todo I don't actually know why this works
-			};
-
-			function setName(){
-				var temp = "info";
-				temp = document.getElementsByClassName(temp);
-				cName = $(picsrc[picnum]).find('img').attr('src');
-				cName = cName.replace(".jpg", "");
-				cName = cName.replace("../images/portrait/", "");//isolates the initials/designation
-				setInfo();
-				temp[fixer].innerHTML = infoOfficer;
-			};
-
-			function setInfo(){
-					//Officers
-					//row 0
-					if(cName=='cw'){		//Christine Wang
-						infoOfficer= "I'm allergic to metal, including those placed in the water system" + "<br />" +
-						"I had a fro that made me look like a boy "+ "<br />" +
-						"Eye doctors still think I'm going to go blind ";
-					}
-					else if(cName=='vc'){	//Valentina Chen
-						infoOfficer= "I've danced for 13 years." + "<br />" +
-						"I've auditioned for America's Got Talent."+ "<br />" +
-						"Country music is the best genre.";
-					}
-					else if(cName=='ml'){	//Mimi Lie
-						infoOfficer= "I have four succulents. Their names are Wasabi, Mustard, Ginger, and Giraffe." + "<br />" + 
-						"I like to read books and smell books.";
-					}
-					//row 1
-					else if(cName=='jz'){	//Jane Zeng
-						infoOfficer= "I have attended almost 80 music concerts in the past three years." + "<br />" +
-						"I am currently level 863 on Candy Crush." + "<br />" +
-						"";
-					}
-					else if(cName=='sz'){	//Sally Zhang	no info given
-						infoOfficer= "I have antennas underneath my hair." + "<br />" +
-						"My third uncle's best friend's mother in law was a gladiator in ancient Rome circa 200 AD." + "<br />" +
-						"I have a pet unicorn named Peter.";
-					}
-					else if(cName=='ic'){	//Isabella Chen
-						infoOfficer= "I know how to remove a mouse\'s brain in under two minutes, unscathed."+"<br />" +
-						"I have moved 8 times in my life between cities in Texas and Massachusetts." + "<br />" +
-						"I have never been to a country in the southern hemisphere";
-					}
-					else if(cName=='lc'){	//Lisa Chung
-						infoOfficer= "I ❤ Hello Kitty" + "<br />" + 
-						"I work at Tap House." + "<br />" + 
-						"I have over 1k Tinderfellas.";
-					}
-					//row 2
-					else if(cName=='am'){	//Alan Ma
-						infoOfficer= "I can fold an origami dragon in 30 minutes!" + "<br />" +
-						"I've lived in 3 different countries!" +"<br />"+
-						"This is my third year with TASA <33333";
-					}
-					else if(cName=='mg'){	//Mario Green	no info given
-						infoOfficer= "My max squat is two tons. Get on my level." + "<br />" +
-						"My middle name is Harold Ronald Oliver Marcus the third, Esquire." + "<br />" +
-						"I'm actually part Martian.";
-					}
-					else if(cName=='yt'){	//Yen Ting
-						infoOfficer= "I like popcorn and gummy bears" + "<br />" +
-						"My mom awarded me with a steak dinner the first night I learned to wash my hair under the shower after locking me in the bathroom for 2 hours" + "<br />" + 
-						"I broke my left wrist in elementary school, but my mom thought it was just a sprain and delayed taking me to the hospital for 6 hours";
-					}
-					//Starting JO's
-					//row 0
-					else if(cName=='cl'){	//Cynthia Lin
-						infoOfficer= "I can row a mile in under 7 minutes. (It's all in the legs!)" + "<br />" +
-						"I like to collect my own name tags from conferences and other events. (I have a folder full of them!)" + "<br />" +
-						"I can roll my tongue into the shape of a 3-leaf clover.";
-					}
-					else if(cName=='twh'){	//Ting-Wei Hsu	no info given
-						infoOfficer= "sdrawkcab gnihtyreve etirw ot ekil I" + "<br />" +
-						"!daer ot drah gnihtyreve sekam dna nuf yllaer s'tI" + "<br />" +
-						"taco cat";
-					}
-					else if(cName=='mt'){	//Max Tang
-						infoOfficer= "April Fools' is my favorite holiday." + "<br />" +
-						"I'm very bad about impulse buys. I have many many random useless things, like a monkey costume. " + "<br />" +
-						"Even though I'm studying Electrical Engineering, I can't code to save my life. ";
-					}
-					else if(cName=='dm'){	//Darren Mao 	no info given
-						infoOfficer= "There are twelve little dwarves I always carry around in my pockets. Don't ask about them." + "<br />" +
-						"I hid in the bathroom of the Metropolitan Museum of Art with my younger brother Jamie Kincaid after running away from home." + "<br />" +
-						"We researched an angel.";
-					}
-					//row 1
-					else if(cName=='qs'){	//CJ Shen
-						infoOfficer= "I like Eunji. Like A LOT. Like I'm not even ashamed about how much I like her. APINK FIGHTINGG!! " + "<br />" +
-						"I wrote my Microeconomics essay about Eunji.( ͡° ͜ʖ ͡°) No shame. I didn't get a 100 though :c. " + "<br />" +
-						"";
-					}
-					else if(cName=='tw'){	//Tina Wang
-						infoOfficer= "Love the smell of money" + "<br />"+
-						"Cinnamon is ew" + "<br />" +
-						"I want to live in sophisticated cities";
-					}
-					else if(cName=='hc'){	//Hiro Chang	no info
-						infoOfficer = "Blank Stare :|"+"<br />"+
-						"Deep breathing O_O"+"<br />"+
-						"Hello ( ͡° ͜ʖ ͡°)"
-					}
-					//row 2
-					else if(cName=='al'){	//Angel Lo
-						infoOfficer= "I was born with a small piece of my ear lobe missing. (but there's no harmful effect)" + "<br />" +
-						"I love eating durian, especially when they\'re frozen(kind of like ice cream)" + "<br />" +
-						"I\'m addicted to lipstick and name shoes.";
-					}
-					else if(cName=='jt'){	//Jannery Tam
-						infoOfficer= "I was born on the 7th of November weighing 7 lbs 7.7 oz" + "<br />" +
-						"I have a collection of over 40 different nail polishes" + "<br />" +
-						"I get woozy at the sight of blood";
-					}
-					else if(cName=='jc'){	//Jason Chih	no info
-						infoOfficer = "I support the winning team." + "<br />" +
-						"I can juggle chainsaws while blindfolded backwards." + "<br />" +
-						"I own half the shares at Google.";
-					}
-					else if(cName=='ix'){	//Iris Xu		no info
-						infoOfficer = "I'm addicted to jack in the boxes." + "<br />" +
-						"I own the license to a tortoise in the Fort Worth Zoo." + "<br />" +
-						"I only use 16 ply toilet paper.";
-					}
-					//row 3
-					else if(cName=='va'){	//Vanessa Alexandra
-						infoOfficer = "My first language was Indonesian." + "<br />" +
-						"I've played the piano for about 14 years and the violin for 8 years. " + "<br />" +
-						"I love sushi <3 ";
-					}
-					else if(cName=='ali'){	//Angela Liu
-						infoOfficer = "I have a black toenail from playing basketball last summer. Apparently toenails heal at the slowest speeds ever because right now it is still half black!"+"<br />"+
-						"I like to collect state quarters. I have every state except Alaska!"+"<br />"+
-						"I love making and eating food. My favorite things to make are Taiwanese pudding and mooncakes!"
-					}
-					else if(cName=='sw'){	//Sara Wong
-						infoOfficer = "I love anime and manga." + "<br />" +
-						"I have colorful hair." + "<br />" +
-						"I do not have a dog named Charlie.";
-					}
-					//row 4
-					else if(cName=="dx"){	//Duo Xu
-						infoOfficer = "I won the Congressional Art Award twice ヾ(@゜▽゜@)ノ" + "<br />" + 
-						"I have hyperextended knees (◍•ᴗ•◍)" + "<br />"+ 
-						"I have a tiny left thumb ｡ﾟ(´つω･`｡)ﾟ｡";
-					}
-					else if(cName=='sc'){	//Sara Chen
-						infoOfficer = "I like horror movies and creepy cute things." + "<br />" + 
-						"I used to be a competitive figure skater." + "<br />"+ 
-						"I'm always injured but I can never figure out where all my bruises/scars come from.";
-					}
-					else if(cName=='ly'){	//Leslie Yeh
-						infoOfficer = "I met Heidi Klum In the restroom." + "<br />" +
-						"My favorite exotic creature is the elephant" + "<br />" +
-						"I absolutely hate cilantro.";
-					}
-					else if(cName=='bs'){	//Branon Shang
-						infoOfficer = 
-						"My middle name sounds like a cannon firing." + "<br />" +
-						"I freaked out so much after watching the movie Knowing that my parents took me to the hospital." + "<br />"+ 
-						"I\'ve yet to break a bone (and hopefully won't anytime soon).";
-					}	
-					//row 5
-					else if(cName=='ls'){	//Leon Soong	no info given
-						infoOfficer= "There's a small corner of my closet dedicated to the Ghengis Khan." + "<br />" +
-						"I once tried to parachute my hamster." + "<br />" +
-						"I circumnavigated the planet in less than 3 months with a Caucasian male as part of a bet.";
-					}
-					else if(cName=='jk'){	//Joyce Ku
-						infoOfficer= "I enjoy fishing and camping."+"<br />" +
-						"I like playing badminton and dodge-ball with family." + "<br />" + 
-						"I like listening to Bruno Mars.";
-					}
-					else if(cName=='ac'){	//Alan Cooper
-						infoOfficer = "As of February 21, 2016, I've wasted 56.7 days of my life playing League of Legends."+"<br />"+
-						"Ask me to jump over my own foot sometime."+"<br />"+
-						"I've played piano for 15 years, violin for 8 years."
-					}
-					//row 6
-					else if(cName=='jl'){	//Justin Liang	no info given
-						infoOfficer= "ඇයි ඔබ මේ පරිවර්තනය කළේ නැහැ." + "<br />" +
-						"කවුද ඒ කරන්නේ කෙසේද?" + "<br />" +
-						"මෙම ඔබ සොයන Droid ගේ නොවේ.";
-					}
-					else if(cName=='wl'){	//Wescott Lu
-						infoOfficer= "My body fat percentage based on a skinfold test is 10%" +"<br />"+
-						"I am a survivor of Leukemia" + "<br />"+
-						"I am a clutch 3 point specialist (I like basketball)";
-					}
-					else if(cName=='rn'){	//Rebecca Nguyen	no info
-						infoOfficer = "My father was an eskimo, and my mom was a penguin. Awkward story."+"<br />"+
-						"I am commander of the PlAtInUm PlAtOoN of KiTor."+"<br />"+
-						"I hold the world record for most time spent not spending time."
-					}
-					else if(cName=='el'){	//Emma Liang
-						infoOfficer = "I can play League for 8+ hours nonstop, and my favorite summoner is Wu Kong :3 "+"<br />"+
-						"I know how to make sushi and many other oriental food, so if you need someone to treat you right, you know who to talk to ;) "+"<br />"+
-						""
-					}
-					else{infoOfficer = "No info right now";}
-				}
-			});
-</script>
+	</script>
 <script type="text/javascript">
 	window.onload = function (){
 		var p = document.getElementById("main-container");

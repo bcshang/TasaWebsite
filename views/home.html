@@ -88,8 +88,8 @@
 						<div class="section">Upcoming Events</div>
 						<div class="overview-list-item clearfix">
 							<img src="../images/icon/bubble.png">
-							<h2 class="title">
-								Tea Haus Fundraiser!<br>
+							<h2 class="title"><a href="https://www.facebook.com/events/336395886698482/">
+								Tea Haus Fundraiser!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
 								FRIDAYS ♥ 11AM - 2PM ♥ Jester Center</span>	
 							<h2>
@@ -99,27 +99,19 @@
 							1 for $3 and 3 for $5!</p>
 						</div>
 
-						<div class="overview-list-item clearfix">
-							<img src="../images/icon/swatches.png">
-							<h2 class="title">
-								CSA Joint Event<br>
+
+						<div class="overview-list-item clearfix" id="GM">
+							<img src="../images/icon/GM1.jpg">
+							<h2 class="title"><a href="https://www.facebook.com/events/1038393519606797/">
+								Fourth General Meeting<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, September 16th</span>	
+									Wednesday, October 5th</span>	
 							<h2>
 							<p class="subtext">
-								CSA wants to get their game on. Come out and show yours!</p>
+								Learn how to play with a Jian Zi (Shuttlecock)! T-shirts will also be passed out to paid members.
+								</p>
 						</div>
 
-						<div class="overview-list-item clearfix">
-							<img src="../images/icon/GM1.jpg">
-							<h2 class="title">
-								Third General Meeting<br>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, September 21st</span>	
-							<h2>
-							<p class="subtext">
-								Stay tuned for more details!</p>
-						</div>
 						
 					</div>
 				</div>
@@ -164,13 +156,13 @@
 								Want to get involved and connect with college students from across the country? Get started and build your own Taiwanese American community.
 							</p>
 						</div>
-						<div class="overview-list-item clearfix">
+						<!--<div class="overview-list-item clearfix">
 							<img src="../images/icon/racingflags.png" alt="">
 							<h2 class="title" style="color:#DF272C"><a href="http://www.wearegloballeaders.com/">GLO<br><span class="small-font light highlight"></span></a></h2>
 							<p class="subtext">
 								Enhance your social circle by meeting passionate individuals with tangible skills to become leaders in all facets of our global society.
 							</p>
-						</div>
+						</div>-->
 					</div>
 				</div>
 
@@ -183,8 +175,8 @@
 					</div>
 					<div class="half">
 						<div class="overview-list-item clearfix" id="bar"></div>
-					</div>
-				</div><!-->
+					</div>-->
+				</div>
 			</div>
 		</div>
 		<!-- FOOTER STARTS HERE -->
@@ -278,7 +270,7 @@ var yAxis = d3.svg.axis()
 .orient("left");
 
 	for(var x = 1; x < 5; x++){
-		var url = "https://spreadsheets.google.com/feeds/cells/1XbWLdOv1HVswmjCZMC6hcVD4DjByGMMjsEQ502qtHZo/"+ x +"/public/basic?alt=json";
+		var url = "";
 		$.ajax({
 		    url: url,
 		    dataType: "jsonp",
@@ -350,11 +342,21 @@ bars.transition()
 		});
 	}
 
+/*Begin Date Code*/
+var today = new Date()
+var dateGM = new Date("October 6, 2016")
+var dateEvent = new Date()
+
+if(today.getTime()>dateGM.getTime()){
+	$('#GM').hide();
+}
+/*End Date Code*/
+
 </script>
 <script type="text/javascript">
 	window.onload = function (){
 		var p = document.getElementById("main-container");
-		p.className = p.className + "ed";
+		p.className = p.className + "ed";//change from "load" to "loaded"
 		console.log("done")
 	}
 </script>

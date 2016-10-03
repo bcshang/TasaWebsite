@@ -45,11 +45,11 @@
 
 
 			<ul class="tab">
-				<li><a href="#" class="tablinks active" onclick="openEvents(event,'Yearly')">Yearly Events</a></li>
-				<li><a href="#" class="tablinks" onclick="openEvents(event,'Special')">Special Events</a></li>
-				<li><a href="#" class="tablinks" onclick="openEvents(event,'Interclub')">Interclub Events</a><li>
-				<li><a href="#" class="tablinks" onclick="openEvents(event,'Volunteer')">Volunteer Events</a></li>
-				<li><a href="#" class="tablinks" onclick="openEvents(event,'Fundraising')">Fundraising Events</a></li>
+				<li><a href="#" class="tablinks fixJump active " onclick="openEvents(event,'Yearly')">Yearly Events</a></li>
+				<li><a href="#" class="tablinks fixJump" onclick="openEvents(event,'Special')">Special Events</a></li>
+				<li><a href="#" class="tablinks fixJump" onclick="openEvents(event,'Interclub')">Interclub Events</a><li>
+				<li><a href="#" class="tablinks fixJump" onclick="openEvents(event,'Volunteer')">Volunteer Events</a></li>
+				<li><a href="#" class="tablinks fixJump" onclick="openEvents(event,'Fundraising')">Fundraising Events</a></li>
 			</ul>
 
 		<div class="event-container">
@@ -231,6 +231,18 @@
 
 
 			<div id="Interclub" class="tabcontent single">
+				<div class="overview-list-item clearfix">
+					<img src="../images/preview/39.jpg">
+					<h2 class="title">
+						<a href="https://www.facebook.com/utexascsa/photos/?tab=album&album_id=1132170846874028">
+							CSA & TASA MIXER<br>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">Scavenging Clues</span>
+						</a>
+					</h2>
+					<p class="subtext">
+						TASA CSA game night turnout out to be something other than board games. Each side got a work out following clues scattered around campus, but only one team could be crowned the victor!
+					</p>
+				</div>
 				<div class="overview-list-item clearfix">
 					<img src="../images/preview/16.jpg">
 					<h2 class="title">
@@ -514,9 +526,16 @@
 	document.getElementById(Name).style.display= "block";
 	evt.currentTarget.className +=" active"
 	}
-//End Event Tab stuff
 
-</script>
+
+	//End Event Tab stuff
+</script>	
+<script type="text/javascript">
+	  $('.fixJump').click( function(e) {
+	   e.preventDefault();
+	  });
+	</script>
+
 
 
 <script type="text/javascript">
