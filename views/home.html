@@ -21,9 +21,9 @@
 	  z-index: 10;
 	}
 	#pie {
-  height: 360px;
+  height: 500px;
   position: relative;
-  width: 360px;
+  width: 500px;
   float: left;
 }
 	#bar {
@@ -47,6 +47,9 @@
 
 	</style>
 
+<script src="../js/d3-3.5.13.js"></script>
+<script src = "../js/jquery-2.1.4.js"></script>
+<script src="https:\\d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
 	<div class="main-container">
@@ -88,7 +91,7 @@
 						<div class="section">Upcoming Events</div>
 						<div class="overview-list-item clearfix">
 							<img src="../images/icon/bubble.png">
-							<h2 class="title"><a href="https://www.facebook.com/events/336395886698482/">
+							<h2 class="title"><a href="https://www.facebook.com/events/668454259969359/">
 								Tea Haus Fundraiser!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
 								FRIDAYS ♥ 11AM - 2PM ♥ Jester Center</span>	
@@ -99,20 +102,30 @@
 							1 for $3 and 3 for $5!</p>
 						</div>
 
-
 						<div class="overview-list-item clearfix" id="GM">
 							<img src="../images/icon/GM1.jpg">
-							<h2 class="title"><a href="https://www.facebook.com/events/1038393519606797/">
-								Fourth General Meeting<br></a>
+							<h2 class="title">
+								Fifth General Meeting<br>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, October 5th</span>	
+									Wednesday, October 19th</span>	
 							<h2>
 							<p class="subtext">
-								Learn how to play with a Jian Zi (Shuttlecock)! T-shirts will also be passed out to paid members.
+								Stay tuned for more details!
+								</p>
+						</div>
+						<div class="overview-list-item clearfix" id="ev1">
+							<img src="../images/logo/logo_2015.png">
+							<h2 class="title"><a href="https://www.facebook.com/events/568456430007430/">
+								14TH ANNUAL NIGHT MARKET!<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Friday, October 21st</span>	
+							<h2>
+							<p class="subtext">
+								TASA is hosting its 14th annual Night Market! We'll have awesome perfomances, free prizes and FOOD, and some fun game for you to play! Come join us at Main Mall at 7pm. Hope to see you there!
 								</p>
 						</div>
 
-						
+
 					</div>
 				</div>
 
@@ -156,24 +169,17 @@
 								Want to get involved and connect with college students from across the country? Get started and build your own Taiwanese American community.
 							</p>
 						</div>
-						<!--<div class="overview-list-item clearfix">
-							<img src="../images/icon/racingflags.png" alt="">
-							<h2 class="title" style="color:#DF272C"><a href="http://www.wearegloballeaders.com/">GLO<br><span class="small-font light highlight"></span></a></h2>
-							<p class="subtext">
-								Enhance your social circle by meeting passionate individuals with tangible skills to become leaders in all facets of our global society.
-							</p>
-						</div>-->
 					</div>
 				</div>
 
-				<!--<div class="table clearfix">
+				<div class="table clearfix">
 					<div class="single">
 						<div class="section">Family Scoreboard</div>
 					</div>
-					<div class="half">
+					<div class = "half">
 						<div class="overview-list-item clearfix" id="pie"></div>
 					</div>
-					<div class="half">
+					<!--<div class="half">
 						<div class="overview-list-item clearfix" id="bar"></div>
 					</div>-->
 				</div>
@@ -201,14 +207,110 @@
 		</footer>
 	</div>
 </body>
-<script src="../js/d3-3.5.13.js"></script>
-<script src = "../js/jquery-2.1.4.js"></script>
 
 <script>
 
+
+						var width = 960,
+						    height = 500,
+						    radius = Math.min(width, height) / 2;
+
+						var color = d3.scale.ordinal()
+						    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]);//change colors here
+
+						var arc = d3.svg.arc()
+						    .outerRadius(radius - 10)
+						    .innerRadius(0);
+
+						var labelArc = d3.svg.arc()
+						    .outerRadius(radius - 80)//Changes size of chart
+						    .innerRadius(radius - 80);
+
+						var pie = d3.layout.pie()
+						    .sort(null)
+						    .value(function(d) { return d.points; });//name in data
+
+						var svg = d3.select("#pie").append("svg")//denotes that this is ID "pie", sets location above
+						    .attr("width", width)
+						    .attr("height", height)
+						  .append("g")
+						    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+						var tooltip = d3.select('#pie')               
+				          .append('div')                                                
+				          .attr('class', 'tooltip');                               
+				        tooltip.append('div')                                           
+				          .attr('class', 'Family');                            
+				        tooltip.append('div')                                           
+				          .attr('class', 'points');                                     
+				        tooltip.append('div')                                           
+				          .attr('class', 'percent');   
+
+						d3.csv('data.csv', function(error, data) {
+					          data.forEach(function(d) {
+					            d.count = +d.count;
+					          });
+
+					          var path = svg.selectAll('path')
+					            .data(pie(data))
+					            .enter()
+					            .append('path')
+					            .attr('d', arc)
+					            .attr('fill', function(d, i) { 
+					              return color(d.data.Family); 
+					            });
+					            
+					          path.attr("d", arc)
+							      .style("fill", function(d) { return color(d.data.Family); });
+
+							  path.append("text")
+							      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+							      .attr("dy", ".35em")
+							      .text(function(d) { return d.data.Family; }); 
+
+					          path.on('mouseover', function(d) {                            
+					            var total = d3.sum(data.map(function(d) {                
+					              return d.points;                                           
+					            }));                                                        
+					            var percent = Math.round(1000 * d.data.points / total) / 10; 
+					            tooltip.select('.Family').html(d.data.Family);              
+					            tooltip.select('.points').html(d.data.points);              
+					            tooltip.select('.percent').html(percent + '%');             
+					            tooltip.style('display', 'block');                          
+					          });                                                           
+					          
+					          path.on('mouseout', function() {                              
+					            tooltip.style('display', 'none');                           
+					          });       
+/*				        });                                    
+
+						d3.csv("data.csv", type, function(error, data) {
+						  if (error) throw error;*/
+
+						  var g = svg.selectAll(".arc")
+						      .data(pie(data))
+						    .enter().append("g")
+						      .attr("class", "arc");
+
+						 /* g.append("path")
+						      .attr("d", arc)
+						      .style("fill", function(d) { return color(d.data.Family); });//Family denotes name in data*/
+
+						  g.append("text")
+						      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+						      .attr("dy", ".35em")
+						      .text(function(d) { return d.data.Family; });//family denotes name in data
+						});
+
+						function type(d) {
+						  d.points = +d.points;
+						  return d;
+						}
+
+
 $("#hero-top").attr("src", "../images/hero/9" + Math.floor(Math.random() * 7) + ".jpg");
 
-var dataset = [];
+/*var dataset = [];
 
 var width = 462;
 var height = 360;
@@ -270,7 +372,7 @@ var yAxis = d3.svg.axis()
 .orient("left");
 
 	for(var x = 1; x < 5; x++){
-		var url = "";
+		var url = "https://spreadsheets.google.com/feeds/cells/1XbWLdOv1HVswmjCZMC6hcVD4DjByGMMjsEQ502qtHZo/"+ x +"/public/basic?alt=json";
 		$.ajax({
 		    url: url,
 		    dataType: "jsonp",
@@ -340,15 +442,19 @@ bars.transition()
 
 			}
 		});
-	}
+	}*/
 
 /*Begin Date Code*/
 var today = new Date()
-var dateGM = new Date("October 6, 2016")
+var dateGM = new Date("October 20, 2016")
 var dateEvent = new Date()
-
+var ev1 = new Date("October 22, 2016")
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
+}
+
+if(today.getTime()>ev1.getTime()){
+	$('#ev1').hide();
 }
 /*End Date Code*/
 
