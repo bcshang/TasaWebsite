@@ -44,6 +44,12 @@
   shape-rendering: crispEdges;
 }
 
+.headban{
+	font-size: 35px;
+	color:red;
+	text-align: center;
+	font-family: Verdana;
+}
 
 	</style>
 
@@ -88,11 +94,14 @@
 			<div class="overview-container">
 				<div class="table clearfix">
 					<div class="single">
+						<div class = "headban"><a href = "../views/night-market.html"><b> Thank you to our Night Market Sponsors!
+							<br>
+							>Linked here<</b></a></div>
 						<div class="section">Upcoming Events</div>
-						<div class="overview-list-item clearfix">
+						<div class="overview-list-item clearfix" id="tea">
 							<img src="../images/icon/bubble.png">
-							<h2 class="title"><a href="https://www.facebook.com/events/668454259969359/">
-								Tea Haus Fundraiser!<br></a>
+							<h2 class="title">
+								Tea Haus Fundraiser!<br>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
 								FRIDAYS ♥ 11AM - 2PM ♥ Jester Center</span>	
 							<h2>
@@ -105,23 +114,24 @@
 						<div class="overview-list-item clearfix" id="GM">
 							<img src="../images/icon/GM1.jpg">
 							<h2 class="title">
-								Fifth General Meeting<br>
+								Sixth General Meeting<br>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, October 19th</span>	
+									Wednesday, November 2nd</span>	
 							<h2>
 							<p class="subtext">
-								Stay tuned for more details!
+								Do your best carving pumpkins while competing against other families! Come out to get in the spirit of Halloween.
 								</p>
 						</div>
+
 						<div class="overview-list-item clearfix" id="ev1">
-							<img src="../images/logo/logo_2015.png">
-							<h2 class="title"><a href="https://www.facebook.com/events/568456430007430/">
-								14TH ANNUAL NIGHT MARKET!<br></a>
+							<img src="../images/icon/profle.png">
+							<h2 class="title"><a href="https://www.facebook.com/events/305692399811605/">
+								House of Torment<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, October 21st</span>	
+									Friday, November 4th</span>	
 							<h2>
 							<p class="subtext">
-								TASA is hosting its 14th annual Night Market! We'll have awesome perfomances, free prizes and FOOD, and some fun game for you to play! Come join us at Main Mall at 7pm. Hope to see you there!
+								Ready to be terrified? House of Torment is back for another round! Hope you're prepared for horror as this year's even bigger than the last!
 								</p>
 						</div>
 
@@ -183,7 +193,16 @@
 						<div class="overview-list-item clearfix" id="bar"></div>
 					</div>-->
 				</div>
-			</div>
+
+				<div id="authorize-div" style="display: none">
+			      <span>Authorize access to Google Sheets API</span>
+			      <!--Button for the user to click to initiate auth sequence -->
+			      <button id="authorize-button" onclick="handleAuthClick(event)">
+			        Authorize
+			      </button>
+			    </div>
+			    	<pre id="output"></pre>
+				</div>
 		</div>
 		<!-- FOOTER STARTS HERE -->
 		<footer>
@@ -210,245 +229,223 @@
 
 <script>
 
+//TODO Add comments
+    var CLIENT_ID = '447724460642-0r4ukjt5i7l2s1g8u9e13mg7tmh0733l.apps.googleusercontent.com';
 
-						var width = 960,
-						    height = 500,
-						    radius = Math.min(width, height) / 2;
+      var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 
-						var color = d3.scale.ordinal()
-						    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]);//change colors here
+      //Check if authorized
+      function checkAuth() {
+        gapi.auth.authorize(
+          {
+            'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'immediate': true
+          }, handleAuthResult);
+      }
 
-						var arc = d3.svg.arc()
-						    .outerRadius(radius - 10)
-						    .innerRadius(0);
+      //Handles Authorization
+      function handleAuthResult(authResult) {
+        var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+          // Hide auth UI, then load client library.
+          authorizeDiv.style.display = 'none';
+          loadSheetsApi();
+        } else {
+          // Show auth UI, allowing the user to initiate authorization by
+          // clicking authorize button.
+          authorizeDiv.style.display = 'inline';
+        }
+      }
 
-						var labelArc = d3.svg.arc()
-						    .outerRadius(radius - 80)//Changes size of chart
-						    .innerRadius(radius - 80);
+      function handleAuthClick(event) {
+        gapi.auth.authorize(
+          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+          handleAuthResult);
+        return false;
+      }
 
-						var pie = d3.layout.pie()
-						    .sort(null)
-						    .value(function(d) { return d.points; });//name in data
+      //Load API library
+      function loadSheetsApi() {
+        var discoveryUrl =
+            'https://sheets.googleapis.com/$discovery/rest?version=v4';
+        gapi.client.load(discoveryUrl).then(getFamilyPoints);
+        gapi.client.load(discoveryUrl).then(getFamilyPoints2);
+        gapi.client.load(discoveryUrl).then(getFamilyPoints3);
+        gapi.client.load(discoveryUrl).then(getFamilyPoints4);
+        setTimeout(function(){runPie()}, 1000);//runPie goes too fast, must wait
+       
+      }
 
-						var svg = d3.select("#pie").append("svg")//denotes that this is ID "pie", sets location above
-						    .attr("width", width)
-						    .attr("height", height)
-						  .append("g")
-						    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+       var range;
+       var row;
+      function getFamilyPoints() {
+        gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
+          range: 'Umbreon!A2:B',
+        }).then(function(response) {
+          range = response.result;
+            for (i = 0; i < range.values.length; i++) {
+              row = range.values[i];
+              // Print columns A and E, which correspond to indices 0 and 4.
 
-						var tooltip = d3.select('#pie')               
-				          .append('div')                                                
-				          .attr('class', 'tooltip');                               
-				        tooltip.append('div')                                           
-				          .attr('class', 'Family');                            
-				        tooltip.append('div')                                           
-				          .attr('class', 'points');                                     
-				        tooltip.append('div')                                           
-				          .attr('class', 'percent');   
+              if(row[0]=="Total") {
+                appendPre('Umbreon',row[1], 0);
+              }
+            }
+        });
+      }
 
-						d3.csv('data.csv', function(error, data) {
-					          data.forEach(function(d) {
-					            d.count = +d.count;
-					          });
+      function getFamilyPoints2() {
+		gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
+          range: 'Jolteon!A2:B',
+        }).then(function(response) {
+          range = response.result;
+            for (i = 0; i < range.values.length; i++) {
+              row = range.values[i];
+              if(row[0]=="Total") {
+                appendPre('Jolteon',row[1], 1);
+              }
+            }
+        });
+      }
 
-					          var path = svg.selectAll('path')
-					            .data(pie(data))
-					            .enter()
-					            .append('path')
-					            .attr('d', arc)
-					            .attr('fill', function(d, i) { 
-					              return color(d.data.Family); 
-					            });
-					            
-					          path.attr("d", arc)
-							      .style("fill", function(d) { return color(d.data.Family); });
+      function getFamilyPoints3(){
+		gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
+          range: 'Espeon!A2:B',
+        }).then(function(response) {
+          range = response.result;
+            for (i = 0; i < range.values.length; i++) {
+              row = range.values[i];
+              if(row[0]=="Total") {
+                appendPre('Espeon',row[1], 2);
+              }
+            }
+        });
+      }
+      function getFamilyPoints4() {
+		gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
+          range: 'Flareon!A2:B',
+        }).then(function(response) {
+          range = response.result;
+            for (i = 0; i < range.values.length; i++) {
+              row = range.values[i];
+              if(row[0]=="Total") {
+                appendPre('Flareon',row[1], 3);
+              }
+            }
+        });        
+      }
 
-							  path.append("text")
-							      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-							      .attr("dy", ".35em")
-							      .text(function(d) { return d.data.Family; }); 
+	//Append thing
+       var textContent = "";
+       var data = [{"Family":"Blank", "points":"no"},
+       {"Family":"Blank", "points":"no"},
+       {"Family":"Blank", "points":"no"},
+       {"Family":"Blank", "points":"no"}];
 
-					          path.on('mouseover', function(d) {                            
-					            var total = d3.sum(data.map(function(d) {                
-					              return d.points;                                           
-					            }));                                                        
-					            var percent = Math.round(1000 * d.data.points / total) / 10; 
-					            tooltip.select('.Family').html(d.data.Family);              
-					            tooltip.select('.points').html(d.data.points);              
-					            tooltip.select('.percent').html(percent + '%');             
-					            tooltip.style('display', 'block');                          
-					          });                                                           
-					          
-					          path.on('mouseout', function() {                              
-					            tooltip.style('display', 'none');                           
-					          });       
-/*				        });                                    
+      function appendPre(message1, message2, num) {
+        data[num].Family = message1;
+        data[num].points = parseInt(message2)
+    };
 
-						d3.csv("data.csv", type, function(error, data) {
-						  if (error) throw error;*/
+   function runPie(){
+   	
+      console.log(data);
+	var width = 960,
+	    height = 500,
+	    radius = Math.min(width, height) / 2;
 
-						  var g = svg.selectAll(".arc")
-						      .data(pie(data))
-						    .enter().append("g")
-						      .attr("class", "arc");
+	var color = d3.scale.ordinal()
+	    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]);//change colors here
 
-						 /* g.append("path")
-						      .attr("d", arc)
-						      .style("fill", function(d) { return color(d.data.Family); });//Family denotes name in data*/
+	var arc = d3.svg.arc()
+	    .outerRadius(radius - 10)
+	    .innerRadius(0);
 
-						  g.append("text")
-						      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-						      .attr("dy", ".35em")
-						      .text(function(d) { return d.data.Family; });//family denotes name in data
-						});
+	var labelArc = d3.svg.arc()
+	    .outerRadius(radius - 80)//Changes size of chart
+	    .innerRadius(radius - 80);
 
-						function type(d) {
-						  d.points = +d.points;
-						  return d;
-						}
+	var pie = d3.layout.pie()
+	    .sort(null)
+	    .value(function(d) { return d.points; });//name in data
+
+	var svg = d3.select("#pie").append("svg")//denotes that this is ID "pie", sets location above
+	    .attr("width", width)
+	    .attr("height", height)
+	  .append("g")
+	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+	var tooltip = d3.select('#pie')               
+      .append('div')                                                
+      .attr('class', 'tooltip');                               
+    tooltip.append('div')                                           
+      .attr('class', 'Family');                            
+    tooltip.append('div')                                           
+      .attr('class', 'points');                                     
+    tooltip.append('div')                                           
+      .attr('class', 'percent');   
 
 
+	data.forEach(function(d) {
+	        d.count = +d.count;
+	      });
+
+	var path = svg.selectAll('path')
+	        .data(pie(data))
+	        .enter()
+	        .append('path')
+	        .attr('d', arc)
+	        .attr('fill', function(d, i) { 
+	          return color(d.data.Family); 
+	        });
+	        
+	path.attr("d", arc)
+		      .style("fill", function(d) { return color(d.data.Family); });
+
+	path.append("text")
+		      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+		      .attr("dy", ".35em")
+		      .text(function(d) { return d.data.Family; }); 
+
+	path.on('mouseover', function(d) {                            
+	        var total = d3.sum(data.map(function(d) {                
+	          return d.points;                                           
+	        }));                                                        
+	        var percent = Math.round(1000 * d.data.points / total) / 10; 
+	        tooltip.select('.Family').html(d.data.Family);              
+	        tooltip.select('.points').html(d.data.points);              
+	        tooltip.select('.percent').html(percent + '%');             
+	        tooltip.style('display', 'block');                          
+	      });                                                           
+	      
+	      path.on('mouseout', function() {                              
+	        tooltip.style('display', 'none');                           
+	      });       
+
+	  var g = svg.selectAll(".arc")
+	      .data(pie(data))
+	    .enter().append("g")
+	      .attr("class", "arc");
+
+	  g.append("text")
+	      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+	      .attr("dy", ".35em")
+	      .text(function(d) { return d.data.Family; });//family denotes name in data
+	}
 $("#hero-top").attr("src", "../images/hero/9" + Math.floor(Math.random() * 7) + ".jpg");
 
-/*var dataset = [];
-
-var width = 462;
-var height = 360;
-var heightbar = 100;
-
-var radius = Math.min(width, height) / 2;
-
-var color = d3.scale.category20b();
-
-var tooltip = d3.select('#pie')
-.append('div')
-.attr('class', 'tooltip');
-
-tooltip.append('div')
-.attr('class', 'label');
-
-tooltip.append('div')
-.attr('class', 'count');
-
-tooltip.append('div')
-.attr('class', 'percent');
-
-
-        var svg = d3.select('#pie')
-          .append('svg')
-          .attr('width', width)
-          .attr('height', height)
-          .append('g')
-          .attr('transform', 'translate(' + (width / 2) + 
-            ',' + (height / 2) + ')');
-
-        var arc = d3.svg.arc()
-          .outerRadius(radius);
-
-        var pie = d3.layout.pie()
-          .value(function(d) { return d.count; })
-          .sort(null);
-
-        var path = svg.selectAll('path')
-          .data(pie(dataset));
-
-var bsvg = d3.select('#bar')
-.append('svg')
-.attr('width', width)
-.attr('height', height);
-
-bsvg.append("g")
-.attr("class", "y axis")
-
-var sy = d3.scale.linear()
-.domain([0, 0])
-.range([0, width-60]);
-
-var y = d3.scale.ordinal()
-.rangeRoundBands([0, heightbar], .1);
-
-var yAxis = d3.svg.axis()
-.scale(y)
-.orient("left");
-
-	for(var x = 1; x < 5; x++){
-		var url = "https://spreadsheets.google.com/feeds/cells/1XbWLdOv1HVswmjCZMC6hcVD4DjByGMMjsEQ502qtHZo/"+ x +"/public/basic?alt=json";
-		$.ajax({
-		    url: url,
-		    dataType: "jsonp",
-		    success:function(data) {
-		        // data.feed.entry is an array of objects that represent each cell
-		        var name = data["feed"]["title"]["$t"];
-				var points;
-		 
-				var arrayLength = data["feed"]["entry"].length;
-				for (var i = 0; i < arrayLength; i++) {
-				    if( data["feed"]["entry"][i]["title"]["$t"] == "B32" )
-				    	points = parseInt(data["feed"]["entry"][i]["content"]["$t"])
-				}
-				dataset.push({"label": name, "count": points})
-				console.log(dataset)
-
-				path.data(pie(dataset))
-				.enter()
-				.append('path')
-				.attr('d', arc)
-				.attr('fill', function(d, i) { return color(i); })	
-				.on('mouseover', function(d) {
-					var total = d3.sum(dataset.map(function(d) {
-						return d.count;
-					}));
-
-					var percent = Math.round(1000 * d.data.count / total) / 10;
-					tooltip.select('.label').html(d.data.label);
-					tooltip.select('.count').html(d.data.count); 
-					tooltip.select('.percent').html(percent + '%'); 
-					tooltip.style('display', 'block');
-				})
-				.on('mouseout', function() {
-					tooltip.style('display', 'none');
-				})
-				.on('mousemove', function(d) {
-					tooltip.style('top', (d3.event.layerY + 10) + 'px')
-					.style('left', (d3.event.layerX + 10) + 'px');
-				});
-
-sy.domain([0, d3.max(dataset, function(d,i) { return d.count; })])
-
-y.domain(dataset.map(function(d) { return d.label; }));
-
-bsvg.select(".y.axis")
-.attr("transform", "translate("+ 60 +","+ 0 +")")
-.call(yAxis);
-
-var bars = bsvg.selectAll("rect").data(dataset);
-
-bars.exit()
-.transition()
-.duration(300)
-.remove();
-
-bars.enter()
-.append("rect")
-.attr("x", 60)
-.attr("y", function(d, i) { console.log("asda"); return i * 25; })
-.attr("width", function(d) { return sy(d.count) }) 
-.attr("height", 20)
-.attr("fill", function(d, i) { return color(i); });
-
-bars.transition()
-.duration(300)
-.attr("width", function(d) { return sy(d.count) }) 
-
-			}
-		});
-	}*/
 
 /*Begin Date Code*/
 var today = new Date()
-var dateGM = new Date("October 20, 2016")
+var dateGM = new Date("November 2, 2016")
 var dateEvent = new Date()
-var ev1 = new Date("October 22, 2016")
+var ev1 = new Date("November 4, 2016")
+var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
 }
@@ -456,14 +453,25 @@ if(today.getTime()>dateGM.getTime()){
 if(today.getTime()>ev1.getTime()){
 	$('#ev1').hide();
 }
-/*End Date Code*/
 
+if(today.getDay()==0 || today.getDay()==6) {
+	$("#tea").hide();
+}
+/*End Date Code*/
 </script>
+<!--	Data code	-->
+<script type="text/javascript">
+ 
+</script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+<!--End data code-->
+
+
 <script type="text/javascript">
 	window.onload = function (){
 		var p = document.getElementById("main-container");
 		p.className = p.className + "ed";//change from "load" to "loaded"
-		console.log("done")
+		console.log("done");
 	}
 </script>
 </html>
