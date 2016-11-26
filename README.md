@@ -1,5 +1,5 @@
 # TASA 
-Website created for the Taiwanese American Student Association. Alan is super lame.
+Website created for the Taiwanese American Student Association.
 
 ## Features
 **Cool Images** - Public image of TASA, including our silliness!
