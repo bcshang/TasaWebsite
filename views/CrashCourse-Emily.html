@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" public="../TASA/href/global.css">
+
+<!--   
+  All of what I know is from W3 schools or Alan, but the pie chart on the home page is a D3 data block. It's really cool but hard to understand. 
+  I'll show you it later on once I know what it does....
+  Feel free to look up some javascript libraries such as ScrollMagic (what I used on the about page further down to have images slide in)
+-->
+
+
+<script>
+//stuff can also go here for the script (javascript)
+</script>
+
+<!-- General Notes (My formatting is all over the place....)
+  Everything opened must be closed, e.g. <div> must be closed by </div> or you screw everything up.
+  '#' siginifies a div 'id' which should be specific to one item
+  '.' signifies a div 'class' which can be applied to many items
+  Styles here for the 'portrait' class are copied from the CSS 
+      (cascading style sheet) imported from above.
+      Within each .portrait, we define each element we expect to
+          be in it and then give them styles, e.g. the changes to 
+          img:first-child and defining what the 'h1' class inside
+          will be like (formatting it to look nice)
+-->
+
+
+<!-- For practice,
+  Try printing out the elements gotten from getElementsByClassName()
+  Try adding a new line to the .portrait class like another paragraph and format it so the font is huge!
+  Try changing the transition type and length for fading in and out (changing opacity)
+
+  Just generally read through the page and learn what you don't understand.
+-->
+
+<!-- Your challenges! 
+  If you want to try them, I recommend you do. I worked hard on these =(. Google and W3 schools is your friend. Feel free to ask me questions about anything!
+  (Answers are at the bottom of the document but don't cheat unless you can't figure it out :3)
+  
+  1. Change your picture to someone else! (this requires changing like 4 letters in the 'portrait' declared in the body)
+      
+      Tests Simple understanding of how images are referenced and where images are organized in the TASA folder. (note that some images are .jpg and not .png)
+
+
+  2. Add another portrait of someone else to the page! Then change it so that the pictures are right next to each other.
+     This requires you to format the page a little more. Reference the about page and the CSS (the .about elements) to understand what formatting is used. 
+     Hint: Remember that "row" and "three" are separate classes when "row three" is used to declare a formatting
+     Notice when the body is declared on a page we add the 'about' class so elements within this can be referenced correctly from the CSS 
+        <div class="body-content wrap clearfix about load" id="main-contar">
+        
+        You'll learn to navigate the freaking long CSS sheet to find how you specify elements to a specific page.
+
+
+  3. Make it so that the second picture appears above the first without changing the order inside the <body>. Then, make it so that on hover it fades away showing the picture beneath it! (use the <style>, 'second-child' is not a thing but you can google this to find out what is a thing)
+        
+        Challenge to teach you positioning (relative vs absolute vs static) and opacity, and maybe other stuff depending on how you approach this
+  
+
+  4. Change your name to "Potato" by using javascript on click!
+     Console.log() is your friend here. I used it a lot to find the solution to this. (to open the developer console use ctrl+shift+i, or go to the browser and find where it says "Developer Tools" under tools, at least on Chrome)
+        
+        Learn to use 'childNodes', learn how HTML organizes information, and learn how to access that information when writing functions
+-->
+<style>
+#blue{
+  color:blue;
+}
+
+.portrait img {
+  border-radius: 93px;
+}
+
+.portrait img:first-child {
+  position: absolute;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.portrait img:first-child:hover{
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+/************* i just wanna add nth child properties yo how do this */
+.portrait img:nth-child(3) {
+  opacity: 0;
+}
+
+.portrait h1 {
+  margin-top: 5px;
+}
+
+.portrait p,
+.portrait h1 {
+  color: black;
+  padding-left: 40px;
+}
+
+.portrait{
+  cursor:pointer; cursor:hand;
+}
+
+.info{
+  display:none;
+  color: blue;
+}
+
+
+</style>
+
+
+<body>
+  <!--
+  This is the main example. div is an identifier and doesn't
+      actually mean much on it's own. We assign a div 'class' or
+      'id' to something in order to assign it that format. Items
+      can have multiple defined classes (portrait and pictureX), 
+      but id should be unique. The styling was created with this
+      exact format for 'portrait' in mind. You can create your own if you want :3
+  -->
+  <div class="portrait picture1">
+    <img src="../images/portrait/jc.jpg">
+    <img src="../images/portrait/jt-flip.jpg">
+    <h1> Just messing around </h1>
+    <p> Brandon help what is going on. actually how to add new portrait and make it belong in .portrait childs cuz then i get the styling up there with the fade effect </p>
+  </div>
+
+  <div class="portrait another pic">
+    <img src="../images/portrait/ix.png">
+    <img src="../images/portrait/ix-flip.jpg"
+    <br>
+    <p> p is for potato </p>
+  </div>
+
+
+  <!--
+  These items are initially hidden and will slide down depending on which pictureX class you append to the portrait class. 
+  -->
+  <div class = "parent">
+    <div class="info">Nope</div>
+  </div>
+    <div class="info">Help</div>
+
+</body>
+
+<!--import javascript-->
+<script src = "../js/jquery-2.1.4.js"></script>
+<script>
+  //Notice in the two lines below that javascript doesn't care whether or not I close things with a ';'
+  //It's kinda dumb... but don't do this because it makes things hard to read
+  var inf = "this should be the get elem for inf";
+  var filling = "Hello!"
+
+
+    
+  
+  /* This changes demonstrates console.log (ctrl+shift+i to open
+   *    the developer console)
+   * Also demonstrates changing innerHTML and getting elements by 
+   *    designation (getElementByID). Getting elements by this 
+   *    function is weird and you might have to play with it to
+   *    fully understand what it grabs
+   */
+  $(".picture1").click(function(){  //.picture1 is a class that you can assign in the main body or header or w/e
+    filling = document.getElementsByClassName(inf);
+    console.log(filling[1].innerHTML);
+    filling[1].innerHTML = filling;
+  });
+
+  /* This demonstrates some javascript tools such as sliding down
+   */ 
+  $(".picture2").click(function(){
+    filling = document.getElementsByClassName("info");//can call the item directly or by variable (see the difference in .picture1 and .picture2 for this line)
+    $(filling[0]).slideDown("fast");
+  });
+
+  /* This demonstrates how similar this is to java,
+   * You can use getElementByID() I believe to grab ID's instead
+   *    of elements
+   * Also demonstrates parentNode (whatever node contains the one
+   *    you access)
+   */
+  var flag = 1; // 0 = not showing, 1 = showing
+  $(".picture3").click(function(){
+    filling = document.getElementsByClassName("info");
+    if(flag==0)
+      {$(filling[0]).slideDown("slow"); flag=1;}
+    else
+      {$(filling[0]).slideUp("slow"); flag=0}
+    console.log(filling[0].parentNode);
+  });
+
+</script>
+</html>
+
+<!--
+  STOP HERE UNLESS YOU'RE LOOKING FOR THE ANSWERS TO CHALLENGES.
+  Scroll down further to find them
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  Answers to Challenges!
+  1. Change the img src to these lines  
+    <img src="../images/portrait/bs.jpg">
+    <img src="../images/portrait/bs-flip.jpg">
+
+
+  2. Add this style from the CSS, then append a larger encompassing div class that has this class name
+    .sideBySide{   
+      display: flex;
+    }
+    <div class = "sideBySide">
+      Stuff~~
+    </div>
+
+
+  3.  Replace the img stylings with this! except for the radius thing
+      .portrait img:nth-child(2) {
+          position: relative;
+          opacity: 1;
+          transition: opacity 0.5s ease;
+      }
+
+      .portrait img:nth-child(2):hover{
+          opacity: 0;
+          transition: opacity 0.5s ease;
+      }
+
+      .portrait img:first-child {
+          position:absolute;
+          opacity: 1;
+      }
+
+
+    4. The developer console will show a lot of crap when you console.log 'filling'. You can navigate through it and it kinda looks like an array. Just pick out what you want and remember to use innerHTML to get what's actually inside.
+
+    $(".picture5").click(function() {
+      filling = document.getElementsByClassName("portrait");
+      filling[0].childNodes[5].innerHTML = "Potato";
+    });
+
+
+-->

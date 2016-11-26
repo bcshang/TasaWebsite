@@ -593,6 +593,7 @@ footer .social-icon img{
 
 .about .row-container .row .portrait p,
 .about .row-container .row .portrait h1 {
+	color: black;
 	text-align: center;
 }
 

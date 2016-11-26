@@ -94,11 +94,8 @@
 			<div class="overview-container">
 				<div class="table clearfix">
 					<div class="single">
-						<div class = "headban"><a href = "../views/night-market.html"><b> Thank you to our Night Market Sponsors!
-							<br>
-							>Linked here<</b></a></div>
 						<div class="section">Upcoming Events</div>
-						<div class="overview-list-item clearfix" id="tea">
+						<!--<div class="overview-list-item clearfix" id="tea">
 							<img src="../images/icon/bubble.png">
 							<h2 class="title">
 								Tea Haus Fundraiser!<br>
@@ -109,31 +106,30 @@
 							Heard about the craze with Tea Haus but have no way of getting there?
 							Don't fear because WE ARE BRINGING BACK TEA HAUS TO YOU! we'll be selling Tea Haus' Boba Milk Tea every Friday!
 							1 for $3 and 3 for $5!</p>
-						</div>
-
+						</div>-->
+						
 						<div class="overview-list-item clearfix" id="GM">
 							<img src="../images/icon/GM1.jpg">
 							<h2 class="title">
-								Sixth General Meeting<br>
+								Eighth General Meeting<br>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, November 2nd</span>	
+									Wednesday, November 30th</span>	
 							<h2>
 							<p class="subtext">
-								Do your best carving pumpkins while competing against other families! Come out to get in the spirit of Halloween.
-								</p>
+								Stay tuned for more details!</p>
 						</div>
 
-						<div class="overview-list-item clearfix" id="ev1">
-							<img src="../images/icon/profle.png">
-							<h2 class="title"><a href="https://www.facebook.com/events/305692399811605/">
-								House of Torment<br></a>
+						<div class="overview-list-item clearfix" id = "ev1">
+							<img src="../images/icon/snow.jpg">
+							<h2 class="title"><a href = "https://www.facebook.com/events/1316446895052371/">
+								WINTER BANQUET<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, November 4th</span>	
+									Saturday, December 3rd</span>	
 							<h2>
 							<p class="subtext">
-								Ready to be terrified? House of Torment is back for another round! Hope you're prepared for horror as this year's even bigger than the last!
-								</p>
+								Join TASA's end of the year banquet where we will say farewell to the semester and look forwards to the new year! RSVP on the event page!</p>
 						</div>
+
 
 
 					</div>
@@ -194,12 +190,6 @@
 					</div>-->
 				</div>
 
-				<div id="authorize-div" style="display: none">
-			      <span>Authorize access to Google Sheets API</span>
-			      <!--Button for the user to click to initiate auth sequence -->
-			      <button id="authorize-button" onclick="handleAuthClick(event)">
-			        Authorize
-			      </button>
 			    </div>
 			    	<pre id="output"></pre>
 				</div>
@@ -227,13 +217,30 @@
 	</div>
 </body>
 
-<script>
+<script type="text/javascript">
 
 //TODO Add comments
-    var CLIENT_ID = '447724460642-0r4ukjt5i7l2s1g8u9e13mg7tmh0733l.apps.googleusercontent.com';
+	var key = "AIzaSyAU0dYCncCqC0Wjq9Qz8broVLmuH1qhCTA";
+
+
+    var CLIENT_ID = '556663662168-v7v5bd0jctiqbdec3mifkes41mo0s8ai.apps.googleusercontent.com';
 
       var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 
+	window.onload = function () {
+		/*gapi.client.init( {
+			'apiKey': key,
+			'clientId': CLIENT_ID,
+			'scope':SCOPES.join(' ')
+		}, loadSheetsApi);*/
+		gapi.auth2.init( {
+			'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'fetch_basic_profile': false,
+            'immediate': true
+		}, checkAuth);
+
+	}
       //Check if authorized
       function checkAuth() {
         gapi.auth.authorize(
@@ -241,29 +248,9 @@
             'client_id': CLIENT_ID,
             'scope': SCOPES.join(' '),
             'immediate': true
-          }, handleAuthResult);
+          }, loadSheetsApi);
       }
 
-      //Handles Authorization
-      function handleAuthResult(authResult) {
-        var authorizeDiv = document.getElementById('authorize-div');
-        if (authResult && !authResult.error) {
-          // Hide auth UI, then load client library.
-          authorizeDiv.style.display = 'none';
-          loadSheetsApi();
-        } else {
-          // Show auth UI, allowing the user to initiate authorization by
-          // clicking authorize button.
-          authorizeDiv.style.display = 'inline';
-        }
-      }
-
-      function handleAuthClick(event) {
-        gapi.auth.authorize(
-          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-          handleAuthResult);
-        return false;
-      }
 
       //Load API library
       function loadSheetsApi() {
@@ -273,10 +260,12 @@
         gapi.client.load(discoveryUrl).then(getFamilyPoints2);
         gapi.client.load(discoveryUrl).then(getFamilyPoints3);
         gapi.client.load(discoveryUrl).then(getFamilyPoints4);
-        setTimeout(function(){runPie()}, 1000);//runPie goes too fast, must wait
+        setTimeout(function(){runPie()}, 3000);//runPie goes too fast, must wait for data to be gotten
        
       }
 
+//Next blocks of code simply search through a spreadsheet given a range to find the "Total cell"
+//Will work even if new people are added so long as the same format is kept
        var range;
        var row;
       function getFamilyPoints() {
@@ -287,8 +276,6 @@
           range = response.result;
             for (i = 0; i < range.values.length; i++) {
               row = range.values[i];
-              // Print columns A and E, which correspond to indices 0 and 4.
-
               if(row[0]=="Total") {
                 appendPre('Umbreon',row[1], 0);
               }
@@ -339,14 +326,13 @@
             }
         });        
       }
-
-	//Append thing
        var textContent = "";
-       var data = [{"Family":"Blank", "points":"no"},
-       {"Family":"Blank", "points":"no"},
-       {"Family":"Blank", "points":"no"},
-       {"Family":"Blank", "points":"no"}];
+       var data = [{"Family":"Umbreon", "points":"358"},
+       {"Family":"Jolteon", "points":"354"},
+       {"Family":"Espeon", "points":"384"},
+       {"Family":"Flareon", "points":"340"}];
 
+      //Append things. Formats it so that the runPie can properly read it. Format shown above
       function appendPre(message1, message2, num) {
         data[num].Family = message1;
         data[num].points = parseInt(message2)
@@ -412,6 +398,7 @@
 		      .attr("dy", ".35em")
 		      .text(function(d) { return d.data.Family; }); 
 
+	//This does the hover box effect thing
 	path.on('mouseover', function(d) {                            
 	        var total = d3.sum(data.map(function(d) {                
 	          return d.points;                                           
@@ -423,9 +410,9 @@
 	        tooltip.style('display', 'block');                          
 	      });                                                           
 	      
-	      path.on('mouseout', function() {                              
-	        tooltip.style('display', 'none');                           
-	      });       
+	  path.on('mouseout', function() {                              
+	    tooltip.style('display', 'none');                           
+	  });       
 
 	  var g = svg.selectAll(".arc")
 	      .data(pie(data))
@@ -442,9 +429,9 @@ $("#hero-top").attr("src", "../images/hero/9" + Math.floor(Math.random() * 7) + 
 
 /*Begin Date Code*/
 var today = new Date()
-var dateGM = new Date("November 2, 2016")
+var dateGM = new Date("December 1, 2016")
 var dateEvent = new Date()
-var ev1 = new Date("November 4, 2016")
+var ev1 = new Date("December 6, 2016")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
@@ -460,7 +447,7 @@ if(today.getDay()==0 || today.getDay()==6) {
 /*End Date Code*/
 </script>
 <!--	Data code	-->
-<script type="text/javascript">
+<script>
  
 </script>
 <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
