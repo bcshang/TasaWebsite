@@ -158,9 +158,9 @@ footer .social-icon img{
 	color: #FFFFFF;
 }
 
-.overlay.left{ left: -20px; }
+.overlay.left{ left: -20px; z-index: 2;}
 
-.overlay.right{ right: -20px; }
+.overlay.right{ right: -20px; z-index: 2;}
 
 .overlay.left .triangle {
 	width: 0; 
