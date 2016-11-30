@@ -506,17 +506,6 @@ footer .social-icon img{
 }
 /*Brandon edits*/
 
-.about .rowOf, .about .rowJO{
-	cursor:pointer; cursor:hand;
-}
-
-.about .info{
-	background-color: white;
-	color:#DF272C;
-	display: none;
-}
-/*end Brandon Edits*/
-
 .about .overlay.left{
 		opacity:0;
 		left:55px;
@@ -551,6 +540,15 @@ footer .social-icon img{
 	margin-bottom: 40px;
 	color: white;
     background-color: black;
+}
+
+.about .row-container .blurb {
+	margin-top: -40px;
+	font-size: 20px;
+	color:#DF272C;
+	font-family: "Comic Sans MS";
+	text-align: center;
+	background-color: white;
 }
 
 .about .row-container .row{   

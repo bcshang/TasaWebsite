@@ -5,8 +5,8 @@
 	<title>Taiwanese American Students Association | UT Austin</title>
 	<link rel="stylesheet" href="../public/global.css">
 	<link rel="shortcut icon" href="../public/favicon.ico">
-		<style>
-	.tooltip {
+<style>
+.tooltip {
 	  background: #eee;
 	  box-shadow: 0 0 5px #999999;
 	  color: #333;
@@ -20,13 +20,13 @@
 	  width: 80px;
 	  z-index: 10;
 	}
-	#pie {
+#pie {
   height: 500px;
   position: relative;
   width: 500px;
   float: left;
 }
-	#bar {
+#bar {
   height: 360px;
   position: relative;
   width: 360px;
@@ -53,42 +53,13 @@
 
 /*Stuff for the slide show*/
 #container{
+	border: 5px solid #DF272C;
+	border-radius: 10px;
 	width:1024px;
 	height:500px;
 	position:relative;
 	z-index: 1;
 }
-
-#container .prevButton{
-	height:72px;
-	width:68px;
-	position:absolute;
-	background:url('../images/buttons.png') no-repeat;
-	top:50%;
-	margin-top:-36px;
-	cursor:pointer;
-	z-index:2000;
-	background-position:left top;
-	left:0
-}
-
-#container .prevButton:hover{ background-position:left bottom;left:0;}
-
-#container .nextButton{
-	height:72px;
-	width:68px;
-	position:absolute;
-	background:url('../images/buttons.png') no-repeat;
-	top:50%;
-	margin-top:-36px;
-	cursor:pointer;
-	z-index:2000;
-	background-position:right top;
-	right:0
-}
-
-#container .nextButton:hover{background-position:right bottom;right:0;}
-
 #container ul{
 	width:1024px;
 	height:500px;
@@ -96,24 +67,20 @@
 	position:relative;
 	overflow:hidden;
 }
-
 #container li:first-child{
 	display:list-item;
 	position:absolute;
 }
-
 #container li{
 	position:absolute;
 	display:none;
 }
-
+/*End of slip day*/
 
 
 </style>
 
-<script src="../js/d3-3.5.13.js"></script>
-<script src = "../js/jquery-2.1.4.js"></script>
-<script src="https:\\d3js.org/d3.v3.min.js"></script>
+
 </head>
 <body>
 	<div class="main-container">
@@ -289,6 +256,10 @@
 	</div>
 </body>
 
+<script src="../js/d3-3.5.13.js"></script>
+<script src="../js/d3.v3.min.js"></script>
+<script src = "../js/jquery-2.1.4.js"></script>
+
 <script type="text/javascript">
 
 //TODO Add comments
@@ -297,7 +268,7 @@
 
     var CLIENT_ID = '556663662168-v7v5bd0jctiqbdec3mifkes41mo0s8ai.apps.googleusercontent.com';
 
-      var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
+    var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
 
 	window.onload = function () {
 		/*gapi.client.init( {
@@ -412,20 +383,20 @@
 
    function runPie(){
    	
-      console.log(data);
+    console.log(data);//debugging
 	var width = 960,
 	    height = 500,
 	    radius = Math.min(width, height) / 2;
 
 	var color = d3.scale.ordinal()
-	    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]);//change colors here
+	    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]); //change colors here
 
 	var arc = d3.svg.arc()
 	    .outerRadius(radius - 10)
 	    .innerRadius(0);
 
 	var labelArc = d3.svg.arc()
-	    .outerRadius(radius - 80)//Changes size of chart
+	    .outerRadius(radius - 80) //Changes size of chart
 	    .innerRadius(radius - 80);
 
 	var pie = d3.layout.pie()
@@ -496,8 +467,6 @@
 	      .attr("dy", ".35em")
 	      .text(function(d) { return d.data.Family; });//family denotes name in data
 	}
-$("#hero-top").attr("src", "../images/hero/9" + Math.floor(Math.random() * 7) + ".jpg");
-
 
 /*Begin Date Code*/
 var today = new Date()
@@ -518,81 +487,25 @@ if(today.getDay()==0 || today.getDay()==6) {
 }
 /*End Date Code*/
 </script>
+<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 
 <script>
 /*Stuff for the slide show*/
+ 
  $(window).load(function(){
-		var pages = $('#container li'), current=0;
-		var currentPage,nextPage;
-		var timeoutID;
-		var buttonClicked=0;
-
-		var handler1=function(){
-			buttonClicked=1;
-			$('#container .button').unbind('click');
-			currentPage= pages.eq(current);
-			if($(this).hasClass('prevButton'))
-			{
-				if (current <= 0)
-					current=pages.length-1;
-					else
-					current=current-1;
-			}
-			else
-			{
-
-				if (current >= pages.length-1)
-					current=0;
-				else
-					current=current+1;
-			}
-			nextPage = pages.eq(current);	
-			currentPage.fadeTo('slow',0.3,function(){
-				nextPage.fadeIn('slow',function(){
-					nextPage.css("opacity",1);
-					currentPage.hide();
-					currentPage.css("opacity",1);
-					$('#container .button').bind('click',handler1);
-				});	
-			});			
-		}
-
-		var handler2=function(){
-			if (buttonClicked==0)
-			{
-			$('#container .button').unbind('click');
-			currentPage= pages.eq(current);
-			if (current >= pages.length-1)
-				current=0;
-			else
-				current=current+1;
-			nextPage = pages.eq(current);	
-			currentPage.fadeTo('slow',0.3,function(){
-				nextPage.fadeIn('slow',function(){
-					nextPage.css("opacity",1);
-					currentPage.hide();
-					currentPage.css("opacity",1);
-					$('#container .button').bind('click',handler1);				
-				});	
-			});
-			timeoutID=setTimeout(function(){
-				handler2();	
-			}, 4000);
-			}
-		}
-
-		$('#container .button').click(function(){
-			clearTimeout(timeoutID);
-			handler1();
-		});
-
-		timeoutID=setTimeout(function(){
-			handler2();	
-			}, 4000);
-		
+	var saves = 0;
+	var menu = document.getElementById('container');
+	var tags = menu.getElementsByTagName('li');
+	random = Math.floor(Math.random() * tags.length);
+	setInterval(function() { 
+	var random = Math.floor(Math.random() * tags.length);
+	$(tags[saves]).fadeOut(1500).end().appendTo('#container');
+	$(tags[random]).fadeIn(1500).end().appendTo('#container');
+	saves = random;
+	},  4500);
+				
 });
 </script>
-<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
 <!--End data code-->
 
 
