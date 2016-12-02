@@ -19,7 +19,7 @@
 	  top: 95px;
 	  width: 80px;
 	  z-index: 10;
-	}
+}
 #pie {
   height: 500px;
   position: relative;
@@ -75,7 +75,7 @@
 	position:absolute;
 	display:none;
 }
-/*End of slip day*/
+.overlay.left{ left: -20px; z-index: 2;}
 
 
 </style>
@@ -259,216 +259,134 @@
 <script src="../js/d3-3.5.13.js"></script>
 <script src="../js/d3.v3.min.js"></script>
 <script src = "../js/jquery-2.1.4.js"></script>
-
+<script src="../js/tabletop.js"></script>
+<!--On Load Functions, change page to visible, run pie, run taking-->
 <script type="text/javascript">
 
-//TODO Add comments
-	var key = "AIzaSyAU0dYCncCqC0Wjq9Qz8broVLmuH1qhCTA";
-
-
-    var CLIENT_ID = '556663662168-v7v5bd0jctiqbdec3mifkes41mo0s8ai.apps.googleusercontent.com';
-
-    var SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"];
-
-	window.onload = function () {
-		/*gapi.client.init( {
-			'apiKey': key,
-			'clientId': CLIENT_ID,
-			'scope':SCOPES.join(' ')
-		}, loadSheetsApi);*/
-		gapi.auth2.init( {
-			'client_id': CLIENT_ID,
-            'scope': SCOPES.join(' '),
-            'fetch_basic_profile': false,
-            'immediate': true
-		}, checkAuth);
-
+	//Used to hide the URL of the google doc on the website source code
+	var URLKey;
+	readTextFile("../views/URL.txt");
+	function readTextFile(file) {
+	    var rawFile = new XMLHttpRequest();
+	    rawFile.open("GET", file, false);
+	    rawFile.onreadystatechange = function ()
+	    {
+	        if(rawFile.readyState === 4)
+	        {
+	            if(rawFile.status === 200 || rawFile.status == 0)
+	            {
+	                var allText = rawFile.responseText;
+	                URLKey = allText;
+	            }
+	        }
+	    }
+	    rawFile.send(null);
 	}
-      //Check if authorized
-      function checkAuth() {
-        gapi.auth.authorize(
-          {
-            'client_id': CLIENT_ID,
-            'scope': SCOPES.join(' '),
-            'immediate': true
-          }, loadSheetsApi);
-      }
+
+	var data = [{"Family":"Umbreon", "points":"5"},
+       {"Family":"Jolteon", "points":"5"},
+       {"Family":"Espeon", "points":"5"},
+       {"Family":"Flareon", "points":"5"}];
+
+	function printstuff(stuff){
+    	data[0].points = stuff[0].Umbreon;
+    	data[1].points = stuff[0].Jolteon;
+    	data[2].points = stuff[0].Espeon;
+    	data[3].points = stuff[0].Flareon;
+    	setTimeout( runPie(), 2000 ); //Delays running of the pie, it's delicious
+    }
+
+   //I honestly have no idea what most of this stuff does
+	function runPie(){
+		var width = 960,
+		    height = 500,
+		    radius = Math.min(width, height) / 2;
+
+		var color = d3.scale.ordinal()
+		    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]); //change colors here
+
+		var arc = d3.svg.arc()
+		    .outerRadius(radius - 10)
+		    .innerRadius(0);
+
+		var labelArc = d3.svg.arc()
+		    .outerRadius(radius - 80) //Changes size of chart
+		    .innerRadius(radius - 80);
+
+		var pie = d3.layout.pie()
+		    .sort(null)
+		    .value(function(d) { return d.points; });//name in data
+
+		var svg = d3.select("#pie").append("svg")//denotes that this is ID "pie", sets location above
+		    .attr("width", width)
+		    .attr("height", height)
+		  .append("g")
+		    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+		var tooltip = d3.select('#pie')               
+		  .append('div')                                                
+		  .attr('class', 'tooltip');                               
+		tooltip.append('div')                                           
+		  .attr('class', 'Family');                            
+		tooltip.append('div')                                           
+		  .attr('class', 'points');                                     
+		tooltip.append('div')                                           
+		  .attr('class', 'percent');   
 
 
-      //Load API library
-      function loadSheetsApi() {
-        var discoveryUrl =
-            'https://sheets.googleapis.com/$discovery/rest?version=v4';
-        gapi.client.load(discoveryUrl).then(getFamilyPoints);
-        gapi.client.load(discoveryUrl).then(getFamilyPoints2);
-        gapi.client.load(discoveryUrl).then(getFamilyPoints3);
-        gapi.client.load(discoveryUrl).then(getFamilyPoints4);
-        setTimeout(function(){runPie()}, 3000);//runPie goes too fast, must wait for data to be gotten
-       
-      }
+		data.forEach(function(d) {
+		        d.count = +d.count;
+		      });
 
-//Next blocks of code simply search through a spreadsheet given a range to find the "Total cell"
-//Will work even if new people are added so long as the same format is kept
-       var range;
-       var row;
-      function getFamilyPoints() {
-        gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
-          range: 'Umbreon!A2:B',
-        }).then(function(response) {
-          range = response.result;
-            for (i = 0; i < range.values.length; i++) {
-              row = range.values[i];
-              if(row[0]=="Total") {
-                appendPre('Umbreon',row[1], 0);
-              }
-            }
-        });
-      }
+		var path = svg.selectAll('path')
+		        .data(pie(data))
+		        .enter()
+		        .append('path')
+		        .attr('d', arc)
+		        .attr('fill', function(d, i) { 
+		          return color(d.data.Family); 
+		        });
+		        
+		path.attr("d", arc)
+			      .style("fill", function(d) { return color(d.data.Family); });
 
-      function getFamilyPoints2() {
-		gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
-          range: 'Jolteon!A2:B',
-        }).then(function(response) {
-          range = response.result;
-            for (i = 0; i < range.values.length; i++) {
-              row = range.values[i];
-              if(row[0]=="Total") {
-                appendPre('Jolteon',row[1], 1);
-              }
-            }
-        });
-      }
+		path.append("text")
+			      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+			      .attr("dy", ".35em")
+			      .text(function(d) { return d.data.Family; }); 
 
-      function getFamilyPoints3(){
-		gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
-          range: 'Espeon!A2:B',
-        }).then(function(response) {
-          range = response.result;
-            for (i = 0; i < range.values.length; i++) {
-              row = range.values[i];
-              if(row[0]=="Total") {
-                appendPre('Espeon',row[1], 2);
-              }
-            }
-        });
-      }
-      function getFamilyPoints4() {
-		gapi.client.sheets.spreadsheets.values.get({
-          spreadsheetId: '1fbGSzQo7aQRl6CdK1T2_Abk8i3CJkptnzzBqjWAmnX4',
-          range: 'Flareon!A2:B',
-        }).then(function(response) {
-          range = response.result;
-            for (i = 0; i < range.values.length; i++) {
-              row = range.values[i];
-              if(row[0]=="Total") {
-                appendPre('Flareon',row[1], 3);
-              }
-            }
-        });        
-      }
-       var textContent = "";
-       var data = [{"Family":"Umbreon", "points":"358"},
-       {"Family":"Jolteon", "points":"354"},
-       {"Family":"Espeon", "points":"384"},
-       {"Family":"Flareon", "points":"340"}];
+		//This does the hover box effect thing
+		path.on('mouseover', function(d) {                            
+		        var total = d3.sum(data.map(function(d) {                
+		          return d.points;                                           
+		        }));                                                        
+		        var percent = Math.round(1000 * d.data.points / total) / 10; 
+		        tooltip.select('.Family').html(d.data.Family);              
+		        tooltip.select('.points').html(d.data.points);              
+		        tooltip.select('.percent').html(percent + '%');             
+		        tooltip.style('display', 'block');                          
+		      });                                                           
+		      
+		  path.on('mouseout', function() {                              
+		    tooltip.style('display', 'none');                           
+		  });       
 
-      //Append things. Formats it so that the runPie can properly read it. Format shown above
-      function appendPre(message1, message2, num) {
-        data[num].Family = message1;
-        data[num].points = parseInt(message2)
-    };
+		  var g = svg.selectAll(".arc")
+		      .data(pie(data))
+		    .enter().append("g")
+		      .attr("class", "arc");
 
-   function runPie(){
-   	
-    console.log(data);//debugging
-	var width = 960,
-	    height = 500,
-	    radius = Math.min(width, height) / 2;
-
-	var color = d3.scale.ordinal()
-	    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]); //change colors here
-
-	var arc = d3.svg.arc()
-	    .outerRadius(radius - 10)
-	    .innerRadius(0);
-
-	var labelArc = d3.svg.arc()
-	    .outerRadius(radius - 80) //Changes size of chart
-	    .innerRadius(radius - 80);
-
-	var pie = d3.layout.pie()
-	    .sort(null)
-	    .value(function(d) { return d.points; });//name in data
-
-	var svg = d3.select("#pie").append("svg")//denotes that this is ID "pie", sets location above
-	    .attr("width", width)
-	    .attr("height", height)
-	  .append("g")
-	    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-	var tooltip = d3.select('#pie')               
-      .append('div')                                                
-      .attr('class', 'tooltip');                               
-    tooltip.append('div')                                           
-      .attr('class', 'Family');                            
-    tooltip.append('div')                                           
-      .attr('class', 'points');                                     
-    tooltip.append('div')                                           
-      .attr('class', 'percent');   
-
-
-	data.forEach(function(d) {
-	        d.count = +d.count;
-	      });
-
-	var path = svg.selectAll('path')
-	        .data(pie(data))
-	        .enter()
-	        .append('path')
-	        .attr('d', arc)
-	        .attr('fill', function(d, i) { 
-	          return color(d.data.Family); 
-	        });
-	        
-	path.attr("d", arc)
-		      .style("fill", function(d) { return color(d.data.Family); });
-
-	path.append("text")
+		  g.append("text")
 		      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
 		      .attr("dy", ".35em")
-		      .text(function(d) { return d.data.Family; }); 
+		      .text(function(d) { return d.data.Family; });//family denotes name in data
+		}
+</script>
 
-	//This does the hover box effect thing
-	path.on('mouseover', function(d) {                            
-	        var total = d3.sum(data.map(function(d) {                
-	          return d.points;                                           
-	        }));                                                        
-	        var percent = Math.round(1000 * d.data.points / total) / 10; 
-	        tooltip.select('.Family').html(d.data.Family);              
-	        tooltip.select('.points').html(d.data.points);              
-	        tooltip.select('.percent').html(percent + '%');             
-	        tooltip.style('display', 'block');                          
-	      });                                                           
-	      
-	  path.on('mouseout', function() {                              
-	    tooltip.style('display', 'none');                           
-	  });       
-
-	  var g = svg.selectAll(".arc")
-	      .data(pie(data))
-	    .enter().append("g")
-	      .attr("class", "arc");
-
-	  g.append("text")
-	      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-	      .attr("dy", ".35em")
-	      .text(function(d) { return d.data.Family; });//family denotes name in data
-	}
-
-/*Begin Date Code*/
+<script>
+/* Begin Date Code
+ * Used to hide events after their day because I'm lazy
+ */
 var today = new Date()
 var dateGM = new Date("December 1, 2016")
 var dateEvent = new Date()
@@ -481,41 +399,49 @@ if(today.getTime()>dateGM.getTime()){
 if(today.getTime()>ev1.getTime()){
 	$('#ev1').hide();
 }
-
+//Remove Tea haus on weekends
 if(today.getDay()==0 || today.getDay()==6) {
 	$("#tea").hide();
 }
 /*End Date Code*/
 </script>
-<script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+
 
 <script>
-/*Stuff for the slide show*/
+/*Stuff for the main slide show*/
  
  $(window).load(function(){
 	var saves = 0;
-	var menu = document.getElementById('container');
-	var tags = menu.getElementsByTagName('li');
-	random = Math.floor(Math.random() * tags.length);
+	var container = document.getElementById('container');
+	var list = container.getElementsByTagName('li');
 	setInterval(function() { 
-	var random = Math.floor(Math.random() * tags.length);
-	$(tags[saves]).fadeOut(1500).end().appendTo('#container');
-	$(tags[random]).fadeIn(1500).end().appendTo('#container');
-	saves = random;
-	},  4500);
-				
+		//Randomize and fix if random is the same as saves
+		random = Math.floor(Math.random() * list.length);
+		if (random == saves) {
+			random = (random+1)%list.length;
+		}
+
+		$(list[saves]).fadeOut(1500).end().appendTo('#container');//Fade out the current picture
+		$(list[random]).fadeIn(1500).end().appendTo('#container');//Fade in the random photo
+		saves = random;//Save the random photo number
+	},  4500);				
 });
+/*End of Slide Show*/
 </script>
-<!--End data code-->
 
 
-<script type="text/javascript">
+<script>
 	window.onload = function (){
 		var p = document.getElementById("main-container");
 		p.className = p.className + "ed";//change from "load" to "loaded"
 		console.log("done");
-	}
+		
+		Tabletop.init( { key: URLKey,
+                           callback: function(data, tabletop) { printstuff(data); },
+                           simpleSheet: true } )
+        }
 </script>
+
 </html>
 
 
