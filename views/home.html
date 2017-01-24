@@ -75,6 +75,7 @@
 	position:absolute;
 	display:none;
 }
+
 .overlay.left{ left: -20px; z-index: 2;}
 
 
@@ -127,17 +128,27 @@
 					<span class="button prevButton"></span>
 				    <span class="button nextButton"></span>
 				</div>
-				<!--<img id="hero-top" src="../images/hero/31.jpg" alt="">-->
 			</div>
 
 			<div class="overview-container">
 				<div class="table clearfix">
 					<div class="single">
+						<div class = "headban"><a href = "../views/apply.html"> >> Apply to be a JO << </a></div>
 						<div class="section">Upcoming Events</div>
-						<!--<div class="overview-list-item clearfix" id="tea">
+						<div class="overview-list-item clearfix" id = "GM">
+							<img src="../images/icon/GM1.jpg">
+							<h2 class="title"><a href = "https://www.facebook.com/events/372143766485155">
+								Spring First General Meeting!<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Wednesday, January 25th &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
+							<h2>
+							<p class="subtext">
+								Come learn what TASA is all about at our first GM! We have fun activities in store and exciting events to come for the new semester! FREE FEWDS</p>
+						</div>
+						<div class="overview-list-item clearfix" id="tea">
 							<img src="../images/icon/bubble.png">
-							<h2 class="title">
-								Tea Haus Fundraiser!<br>
+							<h2 class="title"><a href = "https://www.facebook.com/events/231846157225707/">
+								Tea Haus Fundraiser!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
 								FRIDAYS ♥ 11AM - 2PM ♥ Jester Center</span>	
 							<h2>
@@ -145,30 +156,30 @@
 							Heard about the craze with Tea Haus but have no way of getting there?
 							Don't fear because WE ARE BRINGING BACK TEA HAUS TO YOU! we'll be selling Tea Haus' Boba Milk Tea every Friday!
 							1 for $3 and 3 for $5!</p>
-						</div>-->
-						
-						<div class="overview-list-item clearfix" id="GM">
-							<img src="../images/icon/GM1.jpg">
-							<h2 class="title">
-								Eighth General Meeting<br>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, November 30th</span>	
-							<h2>
-							<p class="subtext">
-								Stay tuned for more details!</p>
 						</div>
+
+
 
 						<div class="overview-list-item clearfix" id = "ev1">
-							<img src="../images/icon/snow.jpg">
-							<h2 class="title"><a href = "https://www.facebook.com/events/1316446895052371/">
-								WINTER BANQUET<br></a>
+							<img src="../images/icon/dumpling.jpg">
+							<h2 class="title"><a href = "https://www.facebook.com/events/368747576827053/">
+								Dumpling Night<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Saturday, December 3rd</span>	
+									Friday, January 27th &emsp;&emsp;&emsp; Jester West Kitchen @ 6pm</span>	
 							<h2>
 							<p class="subtext">
-								Join TASA's end of the year banquet where we will say farewell to the semester and look forwards to the new year! RSVP on the event page!</p>
+								Learn how to hand-make dumplings. We're pretty much pros at this now and they taste great!</p>
 						</div>
-
+						<!--<div class="overview-list-item clearfix">
+							<img src="../images/icon/doge.jpg">
+							<h2 class="title"><a href = "">
+								Animal Center Volunteering<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Sunday, February 12th &emsp;&emsp;&emsp; Austin Animal Center @ 9am</span>	
+							<h2>
+							<p class="subtext">
+								Help the local Austin community by working with cute cats and dogs from the Austin Animal Center!</p>
+						</div>-->
 
 
 					</div>
@@ -388,9 +399,9 @@
  * Used to hide events after their day because I'm lazy
  */
 var today = new Date()
-var dateGM = new Date("December 1, 2016")
+var dateGM = new Date("January 26, 2017")
 var dateEvent = new Date()
-var ev1 = new Date("December 6, 2016")
+var ev1 = new Date("January 28, 2017")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
