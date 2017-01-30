@@ -135,16 +135,7 @@
 					<div class="single">
 						<div class = "headban"><a href = "../views/apply.html"> >> Apply to be a JO << </a></div>
 						<div class="section">Upcoming Events</div>
-						<div class="overview-list-item clearfix" id = "GM">
-							<img src="../images/icon/GM1.jpg">
-							<h2 class="title"><a href = "https://www.facebook.com/events/372143766485155">
-								Spring First General Meeting!<br></a>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, January 25th &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
-							<h2>
-							<p class="subtext">
-								Come learn what TASA is all about at our first GM! We have fun activities in store and exciting events to come for the new semester! FREE FEWDS</p>
-						</div>
+
 						<div class="overview-list-item clearfix" id="tea">
 							<img src="../images/icon/bubble.png">
 							<h2 class="title"><a href = "https://www.facebook.com/events/231846157225707/">
@@ -158,19 +149,30 @@
 							1 for $3 and 3 for $5!</p>
 						</div>
 
-
-
-						<div class="overview-list-item clearfix" id = "ev1">
-							<img src="../images/icon/dumpling.jpg">
-							<h2 class="title"><a href = "https://www.facebook.com/events/368747576827053/">
-								Dumpling Night<br></a>
+						<div class="overview-list-item clearfix" id = "GM">
+							<img src="../images/icon/GM1.jpg">
+							<h2 class="title"><a href = "">
+								General Meeting!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, January 27th &emsp;&emsp;&emsp; Jester West Kitchen @ 6pm</span>	
+									Wednesday, February 8th &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
 							<h2>
 							<p class="subtext">
-								Learn how to hand-make dumplings. We're pretty much pros at this now and they taste great!</p>
+								Stay tuned for more details!
+								</p>
 						</div>
-						<!--<div class="overview-list-item clearfix">
+
+						<div class="overview-list-item clearfix" id = "ev1">
+							<img src="../images/icon/bikewheel.png">
+							<h2 class="title"><a href = "https://www.facebook.com/events/1087056411422542/">
+								Roller Skating Joint Event<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Friday, February 10th &emsp;&emsp;&emsp; Millennium Youth Entertainment @ 5pm</span>	
+							<h2>
+							<p class="subtext">
+								Let's go skating with YAD and CSA in this third annual event! Bring a date, or fly solo, but come out and enjoy a day on wheels. Be sure to RSVP so we know you're coming and can provide rides accordingly.</p>
+						</div>
+
+						<div class="overview-list-item clearfix">
 							<img src="../images/icon/doge.jpg">
 							<h2 class="title"><a href = "">
 								Animal Center Volunteering<br></a>
@@ -179,7 +181,7 @@
 							<h2>
 							<p class="subtext">
 								Help the local Austin community by working with cute cats and dogs from the Austin Animal Center!</p>
-						</div>-->
+						</div>
 
 
 					</div>
@@ -247,7 +249,7 @@
 		<!-- FOOTER STARTS HERE -->
 		<footer>
 			<div class="wrap clearfix table">
-				<p class="footer-text">Taiwanese American Students Association 2015-2016</p>
+				<p class="footer-text">Taiwanese American Students Association 2015-2017</p>
 				<div class="social-icon">
 					<a href="https://twitter.com/uttasa">
 						<img src="../images/logo/twitter.png" alt="Twitter">
@@ -399,9 +401,10 @@
  * Used to hide events after their day because I'm lazy
  */
 var today = new Date()
-var dateGM = new Date("January 26, 2017")
+var dateGM = new Date("February 9, 2017")
 var dateEvent = new Date()
-var ev1 = new Date("January 28, 2017")
+var ev1 = new Date("February 11, 2017")
+var ev2 = new Date("February 13, 2017")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
@@ -409,6 +412,9 @@ if(today.getTime()>dateGM.getTime()){
 
 if(today.getTime()>ev1.getTime()){
 	$('#ev1').hide();
+}
+if(today.getTime()>ev2.getTime()){
+	$('#ev2').hide();
 }
 //Remove Tea haus on weekends
 if(today.getDay()==0 || today.getDay()==6) {
