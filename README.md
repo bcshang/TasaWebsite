@@ -8,3 +8,8 @@ Website created for the Taiwanese American Student Association.
 
 ##Licence
 MIT
+
+
+Contributors:
+Alan Ma - https://github.com/wolfier
+Brandon Shang - https://github.com/bcshang
