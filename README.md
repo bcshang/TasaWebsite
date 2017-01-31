@@ -12,4 +12,5 @@ MIT
 
 Contributors:
 Alan Ma - https://github.com/wolfier
+
 Brandon Shang - https://github.com/bcshang
