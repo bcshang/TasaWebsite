@@ -1,6 +1,8 @@
 # TASA 
 Website created for the Taiwanese American Student Association.
 
+www.texastasa.com
+
 ## Features
 **Cool Images** - Public image of TASA, including our silliness!
 
