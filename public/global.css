@@ -62,7 +62,8 @@ header {
 	background: #000000;
 	text-transform: uppercase;
 	min-width: 1024px;
-	
+	/*position:fixed;
+	z-index: 1;*/
 }
 
 header #logo {
@@ -547,7 +548,7 @@ footer .social-icon img{
 	margin-top: -40px;
 	font-size: 20px;
 	color:#DF272C;
-	font-family: "Comic Sans MS";
+	font-family: "Arial";
 	text-align: center;
 	background-color: white;
 }

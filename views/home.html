@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="../public/global.css">
 	<link rel="shortcut icon" href="../public/favicon.ico">
 <style>
+
 .tooltip {
 	  background: #eee;
 	  box-shadow: 0 0 5px #999999;
@@ -18,7 +19,7 @@
 	  text-align: center;
 	  top: 95px;
 	  width: 80px;
-	  z-index: 10;
+	  z-index: 2;
 }
 #pie {
   height: 500px;
@@ -76,7 +77,6 @@
 	display:none;
 }
 
-.overlay.left{ left: -20px; z-index: 2;}
 
 
 </style>
@@ -125,20 +125,17 @@
 						<li><img src="../images/hero/96.jpg"></li>
 						<li><img src="../images/hero/97.jpg"></li>
 					</ul>
-					<span class="button prevButton"></span>
-				    <span class="button nextButton"></span>
 				</div>
 			</div>
 
 			<div class="overview-container">
 				<div class="table clearfix">
 					<div class="single">
-						<div class = "headban"><a href = "../views/apply.html"> >> Apply to be a JO << </a></div>
 						<div class="section">Upcoming Events</div>
 
 						<div class="overview-list-item clearfix" id="tea">
 							<img src="../images/icon/bubble.png">
-							<h2 class="title"><a href = "https://www.facebook.com/events/231846157225707/">
+							<h2 class="title"><a href = "https://www.facebook.com/events/380745155632989/">
 								Tea Haus Fundraiser!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
 								FRIDAYS ♥ 11AM - 2PM ♥ Jester Center</span>	
@@ -149,39 +146,19 @@
 							1 for $3 and 3 for $5!</p>
 						</div>
 
+
 						<div class="overview-list-item clearfix" id = "GM">
 							<img src="../images/icon/GM1.jpg">
-							<h2 class="title"><a href = "">
+							<h2 class="title"><a href = "https://www.facebook.com/events/830442000426863/">
 								General Meeting!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, February 8th &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
+									Wednesday, February 22nd &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
 							<h2>
 							<p class="subtext">
-								Stay tuned for more details!
+								Let's prove which family is the best at whatever topic. Superlatives inbound!
 								</p>
 						</div>
 
-						<div class="overview-list-item clearfix" id = "ev1">
-							<img src="../images/icon/bikewheel.png">
-							<h2 class="title"><a href = "https://www.facebook.com/events/1087056411422542/">
-								Roller Skating Joint Event<br></a>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, February 10th &emsp;&emsp;&emsp; Millennium Youth Entertainment @ 5pm</span>	
-							<h2>
-							<p class="subtext">
-								Let's go skating with YAD and CSA in this third annual event! Bring a date, or fly solo, but come out and enjoy a day on wheels. Be sure to RSVP so we know you're coming and can provide rides accordingly.</p>
-						</div>
-
-						<div class="overview-list-item clearfix">
-							<img src="../images/icon/doge.jpg">
-							<h2 class="title"><a href = "">
-								Animal Center Volunteering<br></a>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Sunday, February 12th &emsp;&emsp;&emsp; Austin Animal Center @ 9am</span>	
-							<h2>
-							<p class="subtext">
-								Help the local Austin community by working with cute cats and dogs from the Austin Animal Center!</p>
-						</div>
 
 
 					</div>
@@ -296,16 +273,14 @@
 	    rawFile.send(null);
 	}
 
-	var data = [{"Family":"Umbreon", "points":"5"},
-       {"Family":"Jolteon", "points":"5"},
-       {"Family":"Espeon", "points":"5"},
-       {"Family":"Flareon", "points":"5"}];
+	var data = [{"Family":"Sylveon", "points":"5"},
+       {"Family":"Glaceon", "points":"5"},
+       {"Family":"Vaporeon", "points":"5"}];
 
 	function printstuff(stuff){
-    	data[0].points = stuff[0].Umbreon;
-    	data[1].points = stuff[0].Jolteon;
-    	data[2].points = stuff[0].Espeon;
-    	data[3].points = stuff[0].Flareon;
+    	data[0].points = stuff[0].Sylveon;
+    	data[1].points = stuff[0].Glaceon;
+    	data[2].points = stuff[0].Vaporeon;
     	setTimeout( runPie(), 2000 ); //Delays running of the pie, it's delicious
     }
 
@@ -316,7 +291,7 @@
 		    radius = Math.min(width, height) / 2;
 
 		var color = d3.scale.ordinal()
-		    .range(["#686868", "#ffff00", "#d806a4", "#FF0C00"]); //change colors here
+		    .range(["#FF00FF", "#00FFFF", "#20B2AA"]); //change colors here
 
 		var arc = d3.svg.arc()
 		    .outerRadius(radius - 10)
@@ -401,9 +376,9 @@
  * Used to hide events after their day because I'm lazy
  */
 var today = new Date()
-var dateGM = new Date("February 9, 2017")
+var dateGM = new Date("February 23, 2017")
 var dateEvent = new Date()
-var ev1 = new Date("February 11, 2017")
+var ev1 = new Date("February 20, 2017")
 var ev2 = new Date("February 13, 2017")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
