@@ -2,6 +2,8 @@
 Website created for the Taiwanese American Student Association
 Student Organization at The University of Texas at Austin
 
+www.texastasa.com
+
 ## Features
 **Cool Images** - Public image of TASA, including our silliness!
 
@@ -18,3 +20,4 @@ Contributors:
 Alan Ma - https://github.com/wolfier
 
 Brandon Shang - https://github.com/bcshang
+
