@@ -1,57 +1,88 @@
+<!-- Need to tell the "compiler" what it's looking at -->
 <!DOCTYPE html>
+
+
+<!--Welcome to HTML!
+    This tutorial was written with reading in SublimeText in mind. I recommend it's read that way for colors and such
+
+    This programming language is very strange and doesn't care if you're dumb sometimes
+    One of the earliest things you'll encounter is something called a 'div'
+    'div' itself doesn't mean much, but rather serves as a separator for sections of html -->
+<div></div>
+<!--Above you'll see that we start a 'section' of html with these braces: <>
+    We close the section with </>
+
+    Below are more examples of what is 'legal'-->
+<!--Built in Paragraph label-->
+  <p></p>
+<!--Built in Header label-->
+  <h1></h1>
+
+
+<!--In order to continue, let's jump into an actual html document. We have a header here '<html>'
+    which you'll see is closed by a '</html>' at the end of the document.-->
 <html>
-<link rel="stylesheet" href="../public/global.css">
 
-<!-- Preface
-  All of what I know is from W3 schools or other Alan, but the pie chart on the home page is a D3 data block. It's really cool but hard to understand. 
-  I'll show you it later on once I know what it does....
-  Feel free to look up some javascript libraries such as ScrollMagic (what I used on the "about" page further down to have images slide in)
--->
+<!-- This will show up in the webpage -->
+<div>Hello</div>
+<!--The following line causes a line feed character. Basically like pressing 'return' on your keyboard-->
+<br></br>
+<!-- Because HTML is dumb, this also shows up in the page, it's bad practice though so don't do it -->
+This is dumb
 
-
-
-<script>
-//stuff can also go here for the script (javascript)
-</script>
-
-
-<!-- General Notes (My formatting is all over the place....)
-  Everything opened must be closed, e.g. <div> must be closed by </div> or you screw everything up.
-  '#' siginifies a div 'id' which should be specific to one item (e.g. div id = "id1")
-  '.' signifies a div 'class' which can be applied to many items (e.g. div class = "class1")
-  
-  Styles here for the 'portrait' class are copied from the CSS 
-      (cascading style sheet) imported from above.
-      Within each .portrait class, we define each element we expect to
-          be in it and then give them styles, e.g. the changes to 
-          img:first-child and defining what the 'h1' class inside
-          will be like (formatting it to look nice)
-  
-  ctrl+shift+i will open up a developer console. Once you learn how to use this, you can bypass a lot of
-    annoying webpages that don't allow you to copy lyrics or have an annoying pop-up.
--->
-
-
-<!-- For practice,
-  Try:
-    1.  Adding the #blue id to the h1 or p class underneath the portrait
-    2.  printing out the elements gotten from getElementsByClassName()
-          console.log() will be useful here
-    3.  adding a new line to the .portrait class like another paragraph and format it so the font is huge!
-    4.  changing the transition type and length for fading in and out (changing opacity)
--->
+<!-- More interestingly, we can look at the built in labels to html and then modify them ourselves -->
+<h1>Built-in Header class</h1>
+<!-- Here's some examples of adding color to a div element. It makes it red!-->
+<div style="color: red"> RED! </div>
+<div style="background-color:pink"> Poop </div>
+<br></br>
+<br></br>
 
 
 
+
+
+<!--It's rather annoying to put this is front of every element we want it to be applied to.
+    We'll now introduce something called 'style'.-->
 <style>
-/*Here is an example of an ID, this id should be only applied to one element (div or something) on the page*/
-#blue{
-  color:blue;
-}
+/*Note the change in how we do comments in this section
+  'style' the name of a section, like 'html' we put above. It should not contain any elements within it,
+  and anything in this section won't show up*/
+<div>I'm invisible!</div>
 
-/*Here is an example of a class. Note the difference in declaration above
-  "portrait" is the main classname and "img" is some child on the portrait parent element
+
+/* Within the style section, we can define styles in one easy to read place
+    There are two types we can declare: 'class' and 'div'
+      'class' can be applied to multiple 'div' things
+        defined by '.'
+      'id' should only be applied to a single element
+        defined by '#'
 */
+/*Example of a class*/
+.classdemo {
+  color: red;
+}
+/*Example of an id*/
+#iddemo {
+  background-color: pink;
+  color: blue;
+}
+</style>
+
+<!-- Classes can apply to more than 1 div element-->
+<div class = "classdemo"> Red! </div>
+<div class = "classdemo"> Red still! </div>
+<!-- Id's act the same, but in javascript can only reference to one thing this'll be explained later-->
+<div id = "iddemo">Pink Background!</div>
+<div id = "iddemo">Also Pink Background! Don't do repeat id's though</div>
+<!-- One thing that is nice for quick fixes is that id's take priority over classes-->
+<div id = "iddemo" class = "classdemo"> ID's have priority so this isn't red</div>
+
+
+
+<!--Let's put it all together now and do something fancy-->
+<style>
+/*Refers to portrait class and then refers to nested img class in portrait*/
 .portrait img {
   border-radius: 93px;
 }
@@ -62,56 +93,40 @@
   opacity: 1;
   transition: opacity 0.5s ease;
 }
-
+/*Changes the picture on hover of mouse*/
 .portrait img:first-child:hover{
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
-.portrait h1 {
-  margin-top: 5px;
-}
-
 .portrait p,
 .portrait h1 {
   color: black;
-  padding-left: 40px;
 }
 
 .portrait{
   cursor:pointer; cursor:hand;
 }
-
-.info{
-  display:none;
-  color: blue;
+/*Hides things*/
+.parent .info{
+  display: none;
 }
-
 
 </style>
 
 <!--Body section is where most of the content will go-->
 <body>
-  <!--
-  This is the main example. div is an identifier and doesn't
-      actually mean much on it's own. We assign a div 'class' or
-      'id' to something in order to assign it that format. Items
-      can have multiple defined classes (portrait and pictureX), 
-      but id should be unique. The styling was created with this
-      exact format for 'portrait' in mind. You can create your own if you want :3
-  -->
-  <div class="portrait picture1">
+  
+  <div class="portrait picture2">
       <img src="../images/portrait/ac.jpg">
       <img src="../images/portrait/ac-flip.jpg">
-      <h1> Alan Cooper </h1>
-      <p id="blue"> Internal JO </p>
+      <div> Alan Cooper </div>
+      <p> Internal JO </p>
     </div>  
 
 
 
-  <!--
-  These items are initially hidden and will slide down depending on which pictureX class you append to the portrait class. 
-  -->
+
   <div class = "parent">
     <div class="info">Nope</div>
   </div>
@@ -121,6 +136,11 @@
 
 <!--import javascript-->
 <script src = "../js/jquery-2.1.4.js"></script>
+
+<!--Script is all the fancy things you can do on webpages
+    It powers the charts and fancy sliding on the various webpages for texastasa
+    It also is like style and body where it is a reserved type
+  -->
 <script>
   //Notice in the two lines below that javascript doesn't care whether or not I close things with a ';'
   //It's kinda dumb... but don't do this because it makes things hard to read
@@ -137,7 +157,7 @@
   $(".picture1").click(function(){  //.picture1 is a class that you can assign in the main body or header or w/e
     filling = document.getElementsByClassName(inf);
     console.log(filling[1].innerHTML);
-    filling[1].innerHTML = filling;
+    filling[1].innerHTML = "Hello!";
   });
 
   /* This demonstrates some javascript tools such as sliding down
