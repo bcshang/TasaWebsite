@@ -28,7 +28,7 @@
 <!--The following line causes a line feed character. Basically like pressing 'return' on your keyboard-->
 <br></br>
 <!-- Because HTML is dumb, this also shows up in the page, it's bad practice though so don't do it -->
-This is dumb
+This is dumb asdf
 
 <!-- More interestingly, we can look at the built in labels to html and then modify them ourselves -->
 <h1>Built-in Header class</h1>
@@ -48,7 +48,7 @@ This is dumb
 /*Note the change in how we do comments in this section
   'style' the name of a section, like 'html' we put above. It should not contain any elements within it,
   and anything in this section won't show up*/
-<div>I'm invisible!</div>
+
 
 
 /* Within the style section, we can define styles in one easy to read place
@@ -61,7 +61,9 @@ This is dumb
 /*Example of a class*/
 .classdemo {
   color: red;
+  margin-left: 200px;
 }
+
 /*Example of an id*/
 #iddemo {
   background-color: pink;
@@ -76,7 +78,7 @@ This is dumb
 <div id = "iddemo">Pink Background!</div>
 <div id = "iddemo">Also Pink Background! Don't do repeat id's though</div>
 <!-- One thing that is nice for quick fixes is that id's take priority over classes-->
-<div id = "iddemo" class = "classdemo"> ID's have priority so this isn't red</div>
+<div class = "classdemo" id = "iddemo" > ID's have priority so this isn't red</div>
 
 
 
@@ -88,6 +90,11 @@ This is dumb
 }
 
 /*first-child will choose the first element in the children of the class. In this case it will be a photo*/
+
+.portrait p,
+.portrait h1 {
+  color: green;
+}
 .portrait img:first-child {
   position: absolute;
   opacity: 1;
@@ -97,11 +104,6 @@ This is dumb
 .portrait img:first-child:hover{
   opacity: 0;
   transition: opacity 0.5s ease;
-}
-
-.portrait p,
-.portrait h1 {
-  color: black;
 }
 
 .portrait{
@@ -117,10 +119,10 @@ This is dumb
 <!--Body section is where most of the content will go-->
 <body>
   
-  <div class="portrait picture2">
+  <div class="portrait picture3">
       <img src="../images/portrait/ac.jpg">
       <img src="../images/portrait/ac-flip.jpg">
-      <div> Alan Cooper </div>
+      <h1> Alan Cooper </h1>
       <p> Internal JO </p>
     </div>  
 

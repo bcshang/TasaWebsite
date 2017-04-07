@@ -52,6 +52,7 @@
 	color:red;
 	text-align: center;
 	font-family: Verdana;
+	border: 5px solid #ff8080;
 }
 
 /*Stuff for the slide show*/
@@ -129,8 +130,8 @@
 			</div>
 
 			<div class="overview-container">
+				<div class = "headban"><a href = "../views/sponsors.html">>>Thank you to all our ToT sponsors!<< </a></div>
 				<div class="table clearfix">
-					<div class = "headban"> Have a great Spring Break!</div>
 					<div class="single">
 						<div class="section">Upcoming Events</div>
 
@@ -147,42 +148,30 @@
 							1 for $3 and 3 for $5!</p>
 						</div>-->
 
-
-						<div class="overview-list-item clearfix" id = "ev1">
-							<img src="../images/icon/lens.png">
-							<h2 class="title"><a href = "">
-								Dodgeball Social<br></a>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Friday, March 24 &emsp;&emsp;&emsp; Belmont 628 @ 5:30pm</span>
-							<h2>
-							<p class="subtext">
-								Ever feel like hitting your friends? Well now you can! Sorta.... Come out to our dodgeball social. It's a blast!
-								</p>
-						</div>
-
-						<div class="overview-list-item clearfix" id = "ev2">
-							<img src="../images/icon/microphone.png">
-							<h2 class="title"><a href = "">
-								Karaoke Social<br></a>
-								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Saturday, April 1st &emsp;&emsp;&emsp; Hi- Tunes Karaoke @ 9pm</span>
-							<h2>
-							<p class="subtext">
-								Think your voice sucks? Don't worry! We do too, but that doesn't matter. Come out and have fun blowing our ears out anyways! You'll make all your friends like it or else.
-								</p>
-						</div>
+						
 						<div class="overview-list-item clearfix" id = "GM">
 							<img src="../images/icon/GM1.jpg">
-							<h2 class="title"><a href = "">
+							<h2 class="title"><a href = "https://www.facebook.com/events/1415994878474316/">
 								General Meeting!<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, March 22nd &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
+									Wednesday April 5th &emsp;&emsp;&emsp; Jester West Kitchen @ 7pm</span>
 							<h2>
 							<p class="subtext">
-								Stay tuned for more details!
+								Mochi Making! Come learn how to make little balls of flavor. Note the change in location!
 								</p>
 						</div>
 
+						<div class="overview-list-item clearfix" id = "ev1">
+							<img src="../images/icon/lantern.jpg">
+							<h2 class="title"><a href = "https://www.facebook.com/events/534752850195856/">
+								Taste of Taiwan!<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Thursday, April 6th &emsp;&emsp;&emsp; Main Mall @ 7pm</span>
+							<h2>
+							<p class="subtext">
+								Ever wanted to visit a different country but don't have the time or money? Come to Taste of Taiwan! You'll get a FREE cultural experience with our performers, FREE food and games! It's open to everyone so be sure to grab a friend.
+								</p>
+						</div>
 
 
 					</div>
@@ -273,6 +262,9 @@
 <script src="../js/tabletop.js"></script>
 <!--On Load Functions, change page to visible, run pie, run bar-->
 <script type="text/javascript">
+
+
+
 
 	//Used to minorly hide the URL of the google doc on the website source code
 	var URLKey;
@@ -447,7 +439,7 @@
 
 	    //Domains of the bar graph
 	    x.domain(data.map(function(d) { return d.Family; }));
-	    y.domain([0, maxPoints()+10]);
+	    y.domain([0, maxPoints() + (maxPoints() / 10)]); // Y scale is increased for visibility and having the bar not go off the scale
 
 	    //X axis labels
 	    g.append("g")
@@ -489,9 +481,9 @@
  * Used to hide events after their day because I'm lazy
  */
 var today = new Date()
-var dateGM = new Date("March 23, 2017")
+var dateGM = new Date("April 6, 2017")
 var dateEvent = new Date()
-var ev1 = new Date("March 25, 2017")
+var ev1 = new Date("April 7th, 2017")
 var ev2 = new Date("April 2, 2017")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
@@ -537,6 +529,7 @@ if(today.getDay()==0 || today.getDay()==6) {
 
 <script>
 	window.onload = function (){
+		$( "footer" ).insertAfter( "#main-container" );
 		var p = document.getElementById("main-container");
 		p.className = p.className + "ed";//change from "load" to "loaded"
 		console.log("done");

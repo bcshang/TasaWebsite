@@ -146,6 +146,7 @@ footer .social-icon img{
 .baselight { color: #0CA390; }
 .white { color: #FFFFFF; }
 .black { color: #000000; }
+.tasared { color:#DF272C;}
 
 .overlay{
 	position: absolute;
@@ -645,29 +646,33 @@ footer .social-icon img{
 	margin-bottom: 10px;
 }
 
-/***NIGHT-MARKET STYLE***/
+/***Sponsor Style***/
 .night-market .header { color: #000000; }
 
-.night-market .logo-container .col-30 {
+.logo-container .col-30 {
 	width: 33%;
 	float: left;
 }
 
-.night-market .logo-container .col-30 .logo-list-item {
+.logo-container .col-30 .logo-list-item {
 	margin: 0 0 10px 10px;
 	border-radius: 7px;
 	padding: 20px;
 	text-align: center;
 }
 
-.night-market .logo-container .col-30 .logo-list-item a {
+.logo-container .col-30 .logo-list-item a img{
+	border-radius: 93px;
+}
+
+.logo-container .col-30 .logo-list-item a {
 	padding: 12px;
 	opacity: 1;
 	transition: opacity 0.5s;
 }
 
-.night-market .logo-container .col-30 .logo-list-item a:hover {
-	opacity: 0.5;
+.logo-container .col-30 .logo-list-item a:hover {
+	opacity: 0.9;
 }
 
 /***FOOD STYLE***/
@@ -977,6 +982,15 @@ footer .social-icon img{
 	font-size: 0.65em;
 }
 
+#sponsorbody{
+	background: url("../images/tot.jpg") no-repeat center fixed;
+	background-size: cover;
+	height: 100%;
+	font-family: "Titillium";
+	z-index: -1;
+}
+
+
 #sponsor {
 	padding: 125px 100px 75px;
 	background-color: white;
@@ -995,6 +1009,7 @@ footer .social-icon img{
 #sponsor .sponsor-img {
 	padding: 10px;
 }
+
 
 #credit {
 	padding: 550px 100px 25px;
