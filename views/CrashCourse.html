@@ -61,7 +61,6 @@ This is dumb asdf
 /*Example of a class*/
 .classdemo {
   color: red;
-  margin-left: 200px;
 }
 
 /*Example of an id*/
@@ -88,27 +87,29 @@ This is dumb asdf
 .portrait img {
   border-radius: 93px;
 }
-
-/*first-child will choose the first element in the children of the class. In this case it will be a photo*/
-
-.portrait p,
-.portrait h1 {
+/*Placing a comma in between the classes applies the following to both elements*/
+.portrait p, .portrait h1 {
   color: green;
 }
+
+/*first-child will choose the first element in the children of the class. In this case we will make sure it will refer to a photo by adding img: beforehand*/
 .portrait img:first-child {
   position: absolute;
   opacity: 1;
   transition: opacity 0.5s ease;
 }
+
 /*Changes the picture on hover of mouse*/
 .portrait img:first-child:hover{
   opacity: 0;
   transition: opacity 0.5s ease;
 }
 
+/*Makes the cursor a pointer or a hand. I list both for cross-browser compatibility*/
 .portrait{
   cursor:pointer; cursor:hand;
 }
+
 /*Hides things*/
 .parent .info{
   display: none;
@@ -119,7 +120,7 @@ This is dumb asdf
 <!--Body section is where most of the content will go-->
 <body>
   
-  <div class="portrait picture3">
+  <div class="portrait picture1">
       <img src="../images/portrait/ac.jpg">
       <img src="../images/portrait/ac-flip.jpg">
       <h1> Alan Cooper </h1>

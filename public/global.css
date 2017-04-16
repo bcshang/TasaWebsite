@@ -190,6 +190,7 @@ footer .social-icon img{
 .light { font-weight: lighter; }
 .bold{ font-weight: bold; }
 
+/*This header is our own defined header class*/
 .header { 
 	padding: 30px 50px;
 	font-size: 60px;
@@ -199,7 +200,10 @@ footer .social-icon img{
 	letter-spacing: -2px;
 }
 
+
+
 /***ALL CONTENT MUST BE WITHIN WRAP AND BODY CONTENT***/
+/*load and loaded make it so that the page doesn't appear until completely loaded*/
 .loaded {
 	opacity: 1;
 	transition: opacity 0.5s ease;
@@ -982,7 +986,7 @@ footer .social-icon img{
 	font-size: 0.65em;
 }
 
-#sponsorbody{
+.sponsorbody{
 	background: url("../images/tot.jpg") no-repeat center fixed;
 	background-size: cover;
 	height: 100%;
