@@ -441,7 +441,8 @@ footer .social-icon img{
 .tabcontent{ 
 	display: none;}
 
-/***FAMILIES STYLE***/
+
+/***About STYLE***/
 .about .officer-container {
 	padding: 40px 200px
 }
@@ -498,7 +499,7 @@ footer .social-icon img{
 .about .highlight-container .overlay{
 	margin-top: -120px;/*also edit*/
 }
-/*Brandon edits*/
+
 .about .imLeft {
 	position:relative;
 	right:75px;
@@ -511,17 +512,16 @@ footer .social-icon img{
 	overflow:hidden;
 	opacity:0;
 }
-/*Brandon edits*/
 
 .about .overlay.left{
-		opacity:0;
-		left:55px;
-	}
+	opacity:0;
+	left:55px;
+}
 
 .about .overlay.right{
-		opacity:0;
-		right:55px;
-	}
+	opacity:0;
+	right:55px;
+}
 
 
 
@@ -532,7 +532,7 @@ footer .social-icon img{
 	font-weight: bold;
 	text-transform: uppercase;
 	color: #FFFFFF;
-	}
+}
 
 .about img { vertical-align: top; }
 
@@ -650,34 +650,7 @@ footer .social-icon img{
 	margin-bottom: 10px;
 }
 
-/***Sponsor Style***/
-.night-market .header { color: #000000; }
 
-.logo-container .col-30 {
-	width: 33%;
-	float: left;
-}
-
-.logo-container .col-30 .logo-list-item {
-	margin: 0 0 10px 10px;
-	border-radius: 7px;
-	padding: 20px;
-	text-align: center;
-}
-
-.logo-container .col-30 .logo-list-item a img{
-	border-radius: 93px;
-}
-
-.logo-container .col-30 .logo-list-item a {
-	padding: 12px;
-	opacity: 1;
-	transition: opacity 0.5s;
-}
-
-.logo-container .col-30 .logo-list-item a:hover {
-	opacity: 0.9;
-}
 
 /***FOOD STYLE***/
 .food .food-container { padding: 50px 50px; }
@@ -866,7 +839,36 @@ footer .social-icon img{
 	background: #DF272C;
 }
 
-/*** TASTE OF TAIWAN STYLE ***/
+/***Sponsor Style***/
+.night-market .header { color: #000000; }
+
+.logo-container .col-30 {
+	width: 33%;
+	float: left;
+}
+
+.logo-container .col-30 .logo-list-item {
+	margin: 0 0 10px 10px;
+	border-radius: 7px;
+	padding: 20px;
+	text-align: center;
+}
+
+.logo-container .col-30 .logo-list-item a img{
+	border-radius: 93px;
+}
+
+.logo-container .col-30 .logo-list-item a {
+	padding: 12px;
+	opacity: 1;
+	transition: opacity 0.5s;
+}
+
+.logo-container .col-30 .logo-list-item a:hover {
+	opacity: 0.9;
+}
+
+/*** TASTE OF TAIWAN STYLE (In Progress) ***/
 
 .center {
 	display: block;

@@ -21,6 +21,7 @@
 	  width: 80px;
 	  z-index: 2;
 }
+
 #pie {
   height: 400px;
   position: relative;
@@ -39,13 +40,13 @@
 .axis path {
 	display: none;
 }
+
 .axis path,
 .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
-
 
 .headban{
 	font-size: 35px;
@@ -148,18 +149,30 @@
 						</div>-->
 
 					
-
 						<div class="overview-list-item clearfix" id = "ev1">
 							<img src="../images/icon/GM1.jpg">
-							<h2 class="title"><a href = "https://www.facebook.com/events/771346619691967/">
-								General Meeting #15<br></a>
+							<h2 class="title"><a href = "https://www.facebook.com/events/106158833256923/">
+								Officer Elections<br></a>
 								<span class="small-font light highlight" style="letter-spacing: -1px;">
-									Wednesday, April 19th &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
+									Wednesday, May 3rd &emsp;&emsp;&emsp; UTC 1.132 @ 7pm</span>
 							<h2>
 							<p class="subtext">
-								The year is coming to a close but we've still got exciting activities! Come make some shaved ice with us and learn how TASA ends the year right!
+								Out with the old and in with the new. Help decide who's going to run TASA next year! We'll have some heartbreaking goodbyes, but the next time we meet is sure to be wonderful!
 								</p>
 						</div>
+
+						<div class="overview-list-item clearfix" id = "ev2">
+							<img src="../images/logo/logo_2015.png">
+							<h2 class="title"><a href = "https://www.facebook.com/events/678300562349915/">
+								End of the year Banquet<br></a>
+								<span class="small-font light highlight" style="letter-spacing: -1px;">
+									Saturday, May 6th &emsp;&emsp;&emsp; Buca di Beppo @ 12:30</span>
+							<h2>
+							<p class="subtext">
+								Our traditional end of the year banquet. Come send off our graduating seniors and reminisce on all the great times we had together. Be sure to RSVP!
+								</p>
+						</div>
+
 					</div>
 				</div>
 
@@ -468,8 +481,8 @@
 var today = new Date()
 var dateGM = new Date("April 6, 2017")
 var dateEvent = new Date()
-var ev1 = new Date("April 20, 2017")
-var ev2 = new Date("April 2, 2017")
+var ev1 = new Date("May 4, 2017")
+var ev2 = new Date("May 7, 2017")
 var tea = new Date();
 if(today.getTime()>dateGM.getTime()){
 	$('#GM').hide();
